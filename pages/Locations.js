@@ -1,0 +1,27 @@
+import React from "react";
+import Layout from "../components/layout/Layout";
+import Subheader from "../Components/ui/Subheader";
+import Location from "../Components/ui/Location";
+
+const Locations = () => {
+  return (
+    <>
+      <Layout>
+        {/* <!-- Subheader Start --> */}
+        <Subheader pagina="Ubicaiones" />
+        {/* <!-- Subheader End --> */}
+
+        {/* <!-- Locations Wrapper Start --> */}
+        <div className="section">
+          <div className="container locations-wrapper">
+            <Location />
+            <Location />
+          </div>
+        </div>
+        {/* <!-- Locations Wrapper End --> */}
+      </Layout>
+    </>
+  );
+};
+
+export default Locations;

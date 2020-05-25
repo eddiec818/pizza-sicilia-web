@@ -1,0 +1,154 @@
+{ 
+    "productos": [{
+        "calzones": [ 
+        {
+            "id": "1",
+            "nombre": "Peperonni",
+            "categoria": "pizza",
+            "ingredientes": {
+                "queso": 1,
+                "salsa": [
+                    "tradicional"
+                ],
+                "others": [
+                    "peperonni"
+                ]
+            },
+            "imagen": null,
+            "precio": 6.99,
+            "disponibilidad": true
+        },
+        {
+            "id": "1",
+            "nombre": "Jamon",
+            "categoria": "pizza",
+            "ingredientes": {
+                "queso": 1,
+                "salsa": [
+                    "tradicional"
+                ],
+                "others": [
+                    "jamon"
+                ]
+            },
+            "imagen": null,
+            "precio": 6.99,
+            "disponibilidad": true
+        },
+        {
+            "id": "1",
+            "nombre": "Hawaiana",
+            "categoria": "pizza",
+            "ingredientes": {
+                "queso": 1,
+                "salsa": [
+                    "tradicional"
+                ],
+                "others": [
+                    "jamon", "piña"
+                ]
+            },
+            "imagen": null,
+            "precio": 7.99,
+            "disponibilidad": true
+        },
+        {
+            "id": "1",
+            "nombre": "Combinacion",
+            "categoria": "pizza",
+            "ingredientes": {
+                "queso": 1,
+                "salsa": [
+                    "tradicional"
+                ],
+                "others": [
+                    "peperonni", "jamon", "pollo", "pimenton", "cebolla"
+                ]
+            },
+            "imagen": null,
+            "precio": 8.99,
+            "disponibilidad": true
+        }
+        
+        ],
+        "pizzas": [
+            {
+                "id": "1",
+                "nombre": "Peperonni",
+                "categoria": "pizza",
+                "ingredientes": {
+                    "queso": 1,
+                    "salsa": [
+                        "tradicional"
+                    ],
+                    "masa": "delgada",
+                    "others": [
+                        "peperonni"
+                    ]
+                },
+                "imagen": null,
+                "tamaño": 12,
+                "precio": 12.99,
+                "disponibilidad": true
+            },
+            {
+                "id": "1",
+                "nombre": "Jamon",
+                "categoria": "pizza",
+                "ingredientes": {
+                    "queso": 1,
+                    "salsa": [
+                        "tradicional"
+                    ],
+                    "masa": "delgada",
+                    "others": [
+                        "jamon"
+                    ]
+                },
+                "imagen": null,
+                "tamaño": 12,
+                "precio": 12.99,
+                "disponibilidad": true
+            },
+            {
+                "id": "1",
+                "nombre": "Hawaiana",
+                "categoria": "pizza",
+                "ingredientes": {
+                    "queso": 1,
+                    "salsa": [
+                        "tradicional"
+                    ],
+                    "masa": "delgada",
+                    "others": [
+                        "jamon", "piña"
+                    ]
+                },
+                "imagen": null,
+                "tamaño": 12,
+                "precio": 13.99,
+                "disponibilidad": true
+            },
+            {
+                "id": "1",
+                "nombre": "Combinacion",
+                "categoria": "pizza",
+                "ingredientes": {
+                    "queso": 1,
+                    "salsa": [
+                        "tradicional"
+                    ],
+                    "masa": "delgada",
+                    "others": [
+                        "peperonni", "jamon", "pollo", "pimenton", "cebolla"
+                    ]
+                },
+                "imagen": null,
+                "tamaño": 12,
+                "precio": 14.99,
+                "disponibilidad": true
+            }
+        ]
+    }]
+}
+    

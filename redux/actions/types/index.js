@@ -1,0 +1,7 @@
+export const GET_PRODUCTS = 'GET_PRODUCTS';
+
+export const ADD_CART = 'ADD_CART';
+export const GET_CART_NUMBER = 'GET_CART_NUMBER';
+export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
+export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
+export const CLEAR_PRODUCT = 'CLEAR_PRODUCT';

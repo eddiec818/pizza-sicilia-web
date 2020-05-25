@@ -1,209 +1,215 @@
-import Head from 'next/head'
+import React from "react";
+import Layout from "../components/layout/Layout";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <>
+      <Layout>
+        {/* <!-- Banner Start --> */}
+        <div className="banner banner-1 banner-4 light-banner">
+          <div className="banner-item">
+            <div className="banner-inner bg-cover bg-center dark-overlay dark-overlay-2">
+              {" "}
+              {/* style="background-image: url('https://via.placeholder.com/1920x1280') */}
+              <div className="container">
+                <img src="assets/img/misc/1.png" alt="img" />
+                <h1 className="title">
+                  Modernizing The Traditional Italian Pizza
+                </h1>
+                <p className="subtitle">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry
+                </p>
+                <a href="#" className="btn-custom primary">
+                  View Menu
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+        {/* <!-- Banner End --> */}
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
+        {/* <!-- About us start --> */}
+        <div className="section">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-lg-6 mb-lg-30 ct-single-img-wrapper">
+                <img src="https://via.placeholder.com/1280x1560" alt="img" />
+                <div className="ct-dots"></div>
+              </div>
+              <div className="col-lg-6">
+                <div className="section-title-wrap mr-lg-30">
+                  <h5 className="custom-primary">Sir Slice's Heritage</h5>
+                  <h2 className="title">
+                    Serving Pizzas By The Slice Since 1987
+                  </h2>
+                  <p className="subtitle">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s Lorem Ipsum is
+                    simply dummy text of the printing and typesetting industry.
+                  </p>
+                  <p className="subtitle">
+                    Lorem Ipsum has been the industry's standard dummy text ever
+                    since the 1500s
+                  </p>
+                  <div className="signature">
+                    <img src="assets/img/signature.png" alt="signature" />
+                  </div>
+                  <a href="menu-v1.html" className="btn-custom">
+                    Check our Menu
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <!-- About us End --> */}
 
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
+        {/* <!-- Menu Start --> */}
+        <div className="section section-padding pt-0">
+          <div className="container">
+            <div className="section-title-wrap section-header text-center">
+              <h5 className="custom-primary">Pizza Menu</h5>
+              <h2 className="title">Explore Our Menu</h2>
+              <p className="subtitle">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+              </p>
+            </div>
 
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="ct-mini-menu-item">
+                  <div className="ct-mini-menu-top">
+                    <h5>Pepperoni Pizza</h5>
+                    <div className="ct-mini-menu-dots"></div>
+                    <span className="custom-primary">14.99$</span>
+                  </div>
+                  <div className="ct-mini-menu-bottom">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry Lorem Ipsum has been.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="ct-mini-menu-item">
+                  <div className="ct-mini-menu-top">
+                    <h5>Four Cheese</h5>
+                    <div className="ct-mini-menu-dots"></div>
+                    <span className="custom-primary">13.99$</span>
+                  </div>
+                  <div className="ct-mini-menu-bottom">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry Lorem Ipsum has been.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="ct-mini-menu-item">
+                  <div className="ct-mini-menu-top">
+                    <h5>Vegetarian</h5>
+                    <div className="ct-mini-menu-dots"></div>
+                    <span className="custom-primary">9.99$</span>
+                  </div>
+                  <div className="ct-mini-menu-bottom">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry Lorem Ipsum has been.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="ct-mini-menu-item">
+                  <div className="ct-mini-menu-top">
+                    <h5>Barbeque Chicken</h5>
+                    <div className="ct-mini-menu-dots"></div>
+                    <span className="custom-primary">13.99$</span>
+                  </div>
+                  <div className="ct-mini-menu-bottom">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry Lorem Ipsum has been.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="ct-mini-menu-item">
+                  <div className="ct-mini-menu-top">
+                    <h5>Ham & Cheese</h5>
+                    <div className="ct-mini-menu-dots"></div>
+                    <span className="custom-primary">11.99$</span>
+                  </div>
+                  <div className="ct-mini-menu-bottom">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry Lorem Ipsum has been.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="ct-mini-menu-item">
+                  <div className="ct-mini-menu-top">
+                    <h5>Specialty Pizza</h5>
+                    <div className="ct-mini-menu-dots"></div>
+                    <span className="custom-primary">10.99$</span>
+                  </div>
+                  <div className="ct-mini-menu-bottom">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry Lorem Ipsum has been.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <!-- Menu End --> */}
 
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
-  )
-}
+        {/* <!-- Instagram Start --> */}
+        <div className="row no-gutters">
+          <div className="col-lg-2 col-md-4 col-sm-4 col-6 p-0">
+            <a href="#" className="ct-ig-item">
+              <img src="https://via.placeholder.com/640x426" alt="ig" />
+            </a>
+          </div>
+          <div className="col-lg-2 col-md-4 col-sm-4 col-6 p-0">
+            <a href="#" className="ct-ig-item">
+              <img src="https://via.placeholder.com/640x426" alt="ig" />
+            </a>
+          </div>
+          <div className="col-lg-2 col-md-4 col-sm-4 col-6 p-0">
+            <a href="#" className="ct-ig-item">
+              <img src="https://via.placeholder.com/640x426" alt="ig" />
+            </a>
+          </div>
+          <div className="col-lg-2 col-md-4 col-sm-4 col-6 p-0">
+            <a href="#" className="ct-ig-item">
+              <img src="https://via.placeholder.com/640x426" alt="ig" />
+            </a>
+          </div>
+          <div className="col-lg-2 col-md-4 col-sm-4 col-6 p-0">
+            <a href="#" className="ct-ig-item">
+              <img src="https://via.placeholder.com/640x426" alt="ig" />
+            </a>
+          </div>
+          <div className="col-lg-2 col-md-4 col-sm-4 col-6 p-0">
+            <a href="#" className="ct-ig-item">
+              <img src="https://via.placeholder.com/640x426" alt="ig" />
+            </a>
+          </div>
+        </div>
+        {/* <!-- Instagram End --> */}
+      </Layout>
+    </>
+  );
+};
+export default Home;
