@@ -35,6 +35,7 @@ class Firebase {
   // Cierra la sesión del usuario
   async cerrarSesion() {
     await this.auth.signOut();
+    
   }
 }
 

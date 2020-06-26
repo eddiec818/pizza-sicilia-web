@@ -1,6 +1,10 @@
 import React from "react";
 
-const CheckoutTableItem = () => {
+const CheckoutTableItem = ({ cartProduct }) => {
+  const { nombre, tamaño, ingredientes, cantidad, precio } = cartProduct;
+
+  const precioTotal = precio * cantidad;
+
   return (
     <>
       <tr>
@@ -9,20 +13,19 @@ const CheckoutTableItem = () => {
             <div className="cart-product-body">
               <h6>
                 {" "}
-                <a href="#">Pepperoni</a>{" "}
+                <a href="#">{nombre}</a>{" "}
               </h6>
-              <p>21 Inch</p>
-              <p>Extra Cheese</p>
-              <p>Extra Pepperoni</p>
-              <p>Cheese Crust</p>
-              <p>Added Bacon</p>
+              <p>{tamaño} Inch</p>
+              {ingredientes.others.map((ingrediente, index) => (
+                <p key={index}>{ingrediente}</p>
+              ))}
             </div>
           </div>
         </td>
-        <td data-title="Quantity">x1</td>
+        <td data-title="Quantity">x{cantidad}</td>
         <td data-title="Total">
           {" "}
-          <strong>23.99$</strong>{" "}
+          <strong>{precioTotal}$</strong>{" "}
         </td>
       </tr>
     </>

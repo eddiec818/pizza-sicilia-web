@@ -5,7 +5,6 @@ import {
   DECREASE_QUANTITY,
   CLEAR_PRODUCT,
 } from "../actions/types";
-import { productos } from "../../public/statics/products";
 
 export const addCart = (product) => {
   return (dispatch) => {

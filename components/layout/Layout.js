@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -7,6 +7,15 @@ import Search from "../ui/Search";
 import Aside from "../ui/Aside";
 
 const Layout = (props) => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("load", setLoaded(true));
+
+    return () => window.removeEventListener("load", setLoaded(false));
+  }),
+    [loaded];
+
   return (
     <>
       <Head>
@@ -38,11 +47,16 @@ const Layout = (props) => {
       </Head>
 
       {/* <!-- Preloader --> */}
-      {/* <div className="ct-preloader">
-            <div className="c9+t-preloader-inner">
-            <div className="lds-ripple"><div></div><div></div></div>
+      {loaded && (
+        <div className="ct-preloader">
+          <div className="c9+t-preloader-inner">
+            <div className="lds-ripple">
+              <div></div>
+              <div></div>
             </div>
-        </div> */}
+          </div>
+        </div>
+      )}
 
       <CartSideBar />
 

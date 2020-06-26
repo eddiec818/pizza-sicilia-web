@@ -5,7 +5,7 @@ const Footer = () => {
     <>
       <footer className="ct-footer footer-dark">
         {/* <!-- Top Footer --> */}
-        <div className="container">
+        {/* <div className="container">
           <div className="footer-top">
             <div className="footer-logo">
               <img src="https://via.placeholder.com/135x73" alt="logo" />
@@ -27,13 +27,13 @@ const Footer = () => {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* <!-- Middle Footer --> */}
-        <div className="footer-middle">
-          <div className="container">
+        <div className="footer-middle demo-bg">
+          <div className="container ">
             <div className="row">
-              <div className="col-xl-3 col-lg-3 col-md-4 col-sm-12 footer-widget">
+              <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 footer-widget">
                 <h5 className="widget-title">Information</h5>
                 <ul>
                   <li>
@@ -58,7 +58,7 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-4 col-sm-12 footer-widget">
+              <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 footer-widget">
                 <h5 className="widget-title">Top Items</h5>
                 <ul>
                   <li>
@@ -83,33 +83,35 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-4 col-sm-12 footer-widget">
-                <h5 className="widget-title">Others</h5>
-                <ul>
-                  <li>
-                    {" "}
-                    <a href="checkout.html">Checkout</a>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <a href="cart.html">Cart</a>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <a href="menu-item-v1.html">Product</a>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <a href="locations.html">Locations</a>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <a href="legal.html">Legal</a>{" "}
-                  </li>
-                </ul>
-              </div>
-              <div className="col-xl-3 col-lg-3 col-md-6 col-sm-12 footer-widget">
-                <h5 className="widget-title">Social Media</h5>
+              
+              <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 footer-widget">
+                <div className="business-hours">
+                  <h2 className="title">Opening Hours</h2>
+                  <ul className="list-unstyled opening-hours">
+                    <li>
+                      Sunday <span className="pull-right">Closed</span>
+                    </li>
+                    <li>
+                      Monday <span className="pull-right">9:00-22:00</span>
+                    </li>
+                    <li>
+                      Tuesday <span className="pull-right">9:00-22:00</span>
+                    </li>
+                    <li>
+                      Wednesday <span className="pull-right">9:00-22:00</span>
+                    </li>
+                    <li>
+                      Thursday <span className="pull-right">9:00-22:00</span>
+                    </li>
+                    <li>
+                      Friday <span className="pull-right">9:00-23:30</span>
+                    </li>
+                    <li>
+                      Saturday <span className="pull-right">14:00-23:30</span>
+                    </li>
+                  </ul>
+                </div>
+                {/* <h5 className="widget-title">Social Media</h5>
                 <ul className="social-media">
                   <li>
                     {" "}
@@ -145,7 +147,7 @@ const Footer = () => {
                   <a href="#" className="btn-custom btn-sm shadow-none">
                     Sign Up
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

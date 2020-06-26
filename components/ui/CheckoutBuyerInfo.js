@@ -1,115 +1,317 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Router, { useRouter } from "next/router";
+// Actions de redux
+import {
+  addCurrentUser,
+  addUserSuccess,
+  addUserError,
+} from "../../redux/actions/currentUserActions";
+import useUserInfo from "../../hooks/useUserInfo";
 
-const CheckoutBuyerInfo = () => {
+// const INITIAL_STATE = {
+//   name: '',
+//   dirType: 'casa',
+//   province: 'colon',
+//   zone: '',
+//   street: '',
+//   house: '',
+//   phone: '',
+//   email: '',
+//   dirDetails: '',
+// }
+
+const CheckoutBuyerInfo = ({ usuario, firebase }) => {
+  const [userEmail, setUserEmail] = useState("nada");
+  // Estado local para manejar informacion del formulario de checkout
+  const [currentUserInfo, setCurrentUserInfo] = useState({
+    saveInfo: false,
+  });
+  const [disabled, setDisabled] = useState({
+    dirType: false,
+    province: false,
+    zone: false,
+    street: false,
+    house: false,
+    phone: false,
+    dirDetails: false,
+  });
+
+  const dispatch = useDispatch();
+
+  const router = useRouter();
+
+  const { userInfo } = useUserInfo(userEmail);
+
+  useEffect(() => {
+    if (usuario) {
+      setUserEmail(usuario.email);
+      setCurrentUserInfo({
+        ...currentUserInfo,
+        name: usuario.displayName,
+        email: usuario.email,
+      });
+    }
+  }, [usuario]);
+
+  // verificar si hay un usuario loggeado y
+  // traer su informacion para agregar al estado currentUserInfo
+  useEffect(() => {
+    if (usuario) {
+      if (Object.keys(userInfo).length > 0) {
+        setCurrentUserInfo({
+          ...userInfo,
+        });
+        setDisabled({
+          dirType: true,
+          province: true,
+          zone: true,
+          street: true,
+          house: true,
+          phone: true,
+          dirDetails: true,
+        });
+      }
+    }
+  }, [userInfo]);
+
+  // Función que guarda datos en estado userCurrentInfo
+  // conforme el usuario va llenando el formulario
+  const handleChange = (e) => {
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCheck = (e) => {
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      [e.target.id]: e.target.checked,
+    });
+    if (!e.target.checked) {
+      setCurrentUserInfo({
+        [e.target.id]: false,
+      });
+      setDisabled({
+        dirType: false,
+        province: false,
+        zone: false,
+        street: false,
+        house: false,
+        phone: false,
+        dirDetails: false,
+      });
+    }
+  };
+
+  const forgetUserInfo = () =>{
+     firebase.db.collection("usersInfo")
+      .doc(userInfo.id).delete()
+      .then(() => router.reload())
+      .catch(error => {
+        console.log('Error obteniendo el documento', error);
+      });
+  }
+
+  useEffect(() => {
+    dispatch(addUserSuccess(currentUserInfo));
+  }, [currentUserInfo]);
+
+  const capitalize = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
+
   return (
     <>
-      <h4>Billing Details</h4>
+      <div className="d-flex justify-content-between">
+        <h4>Billing Details</h4>
+        {Object.keys(userInfo).length > 0 && (
+          
+            currentUserInfo.saveInfo
+              ? (<a 
+                className="btn"
+                onClick={() => forgetUserInfo()}
+                >
+                  Olvidar datos de Entrega
+                </a>)
+              : (<a 
+                className="btn"
+                onClick={() => router.reload()}
+                >
+                  Usar datos predeterminados
+                </a>)
+          
+        )}
+        <div className="custom-checkbox">
+          <input
+            type="checkbox"
+            className="custom-control-input"
+            id="saveInfo"
+            checked={currentUserInfo.saveInfo}
+            onChange={handleCheck}
+          />
+          <label className="custom-control-label" htmlFor="saveInfo">
+            { Object.keys(userInfo).length > 0 ?
+              (!currentUserInfo.saveInfo
+              ? "Recordar datos de entrega"
+              : "Usar otros datos de entrega")
+              : ("Recordar datos de entrega")
+            }
+          </label>
+        </div>
+      </div>
       <div className="row">
         <div className="form-group col-xl-6">
           <label>
-            First Name <span className="text-danger">*</span>
+            Nombre <span className="text-danger">*</span>
           </label>
           <input
             type="text"
-            placeholder="First Name"
-            name="fname"
+            placeholder={usuario ? usuario.displayName : "First Name"}
+            name="name"
             className="form-control"
-            required=""
+            onChange={handleChange}
+            required
+            disabled={usuario ? true : false}
           />
         </div>
         <div className="form-group col-xl-6">
           <label>
-            Last Name <span className="text-danger">*</span>
+            Tipo de dirección <span className="text-danger">*</span>
           </label>
-          <input
-            type="text"
-            placeholder="Last Name"
-            name="lname"
+          <select
             className="form-control"
-            required=""
-          />
-        </div>
-        <div className="form-group col-xl-12">
-          <label>Company Name</label>
-          <input
-            type="text"
-            placeholder="Company Name (Optional)"
-            name="cname"
-            className="form-control"
-          />
-        </div>
-        <div className="form-group col-xl-12">
-          <label>
-            Country <span className="text-danger">*</span>
-          </label>
-          <select className="form-control">
-            <option value="Panama">Panama</option>
+            name="dirType"
+            onChange={handleChange}
+            disabled={disabled.dirType ? true : false}
+          >
+            {userInfo.dirType && (
+              <option defaultValue={userInfo.dirType} selected>
+                {capitalize(userInfo.dirType)}
+              </option>
+            )}
+            <option value="casa">Casa</option>
+            <option value="apartamento">Apartamento</option>
+            <option value="otroLugar">Otro Lugar</option>
           </select>
         </div>
         <div className="form-group col-xl-6">
           <label>
-            Street Address 1 <span className="text-danger">*</span>
+            Provincia <span className="text-danger">*</span>
           </label>
-          <input
-            type="text"
-            placeholder="Street Address One"
-            name="addr-1"
+          <select
             className="form-control"
-            required=""
-          />
-        </div>
-        <div className="form-group col-xl-6">
-          <label>Street Address 2</label>
-          <input
-            type="text"
-            placeholder="Street Address Two (Optional)"
-            name="addr-1"
-            className="form-control"
-          />
-        </div>
-        <div className="form-group col-xl-12">
-          <label>
-            Town / City <span className="text-danger">*</span>
-          </label>
-          <input
-            type="text"
-            placeholder="Town/City"
-            name="town"
-            className="form-control"
-            required=""
-          />
+            name="province"
+            onChange={handleChange}
+            disabled={disabled.province ? true : false}
+          >
+            {userInfo.province && (
+              <option defaultValue={userInfo.province} selected>
+                {capitalize(userInfo.province)}
+              </option>
+            )}
+            <option defaultValue="colon">Colón</option>
+          </select>
         </div>
         <div className="form-group col-xl-6">
           <label>
-            Phone Number <span className="text-danger">*</span>
+            Zona <span className="text-danger">*</span>
+          </label>
+          <select
+            className="form-control"
+            name="zone"
+            onChange={handleChange}
+            disabled={disabled.zone ? true : false}
+          >
+            {userInfo.zone && (
+              <option defaultValue={userInfo.zone} selected>
+                {capitalize(userInfo.zone)}
+              </option>
+            )}
+            <option value="" hidden>
+              Seleccionar
+            </option>
+            <option value="alborada">Alborada</option>
+            <option value="arcoiris">Arcoiris</option>
+            <option value="cativa">Cativa</option>
+            <option value="city">Ciudad de Colon</option>
+            <option value="davis">PanamaDavis</option>
+            <option value="espinar">Espinar</option>
+            <option value="margarita">Margarita</option>
+            <option value="puerto">Puerto Escondido</option>
+            <option value="sanjudas">San Judas</option>
+            <option value="sanmartin">San Martin</option>
+          </select>
+        </div>
+        <div className="form-group col-xl-6">
+          <label>
+            Calle <span className="text-danger">*</span>
           </label>
           <input
             type="text"
-            placeholder="Phone Number"
+            placeholder={userInfo.street ? userInfo.street : "Calle b"}
+            name="street"
+            className="form-control"
+            onChange={handleChange}
+            disabled={disabled.street ? true : false}
+            required
+          />
+        </div>
+        <div className="form-group col-xl-6">
+          <label>
+            Casa <span className="text-danger">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder={userInfo.house ? userInfo.house : "Casa 12"}
+            name="house"
+            className="form-control"
+            onChange={handleChange}
+            disabled={disabled.house ? true : false}
+            required
+          />
+        </div>
+        <div className="form-group col-xl-6">
+          <label>
+            Telefono <span className="text-danger">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder={userInfo.phone ? userInfo.phone : "6123-4567"}
             name="phone"
             className="form-control"
-            required=""
+            onChange={handleChange}
+            disabled={disabled.phone ? true : false}
+            required
           />
         </div>
         <div className="form-group col-xl-6">
           <label>
-            Email Address <span className="text-danger">*</span>
+            Correo Electronico <span className="text-danger">*</span>
           </label>
           <input
             type="email"
-            placeholder="Email Address"
+            placeholder={usuario ? usuario.email : "ejemplo@correo.com"}
             name="email"
             className="form-control"
-            required=""
+            onChange={handleChange}
+            required
+            disabled={usuario ? true : false}
           />
         </div>
         <div className="form-group col-xl-12 mb-0">
-          <label>Order Notes</label>
+          <label>Detalles de referencia</label>
           <textarea
-            name="name"
+            name="dirDetails"
             rows="5"
             className="form-control"
-            placeholder="Order Notes (Optional)"
+            onChange={handleChange}
+            placeholder={
+              userInfo.dirDetails
+                ? userInfo.dirDetails
+                : "Más detalles de la dirección (Opcional)"
+            }
+            disabled={disabled.dirDetails ? true : false}
           ></textarea>
         </div>
       </div>

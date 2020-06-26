@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import Link from "next/link";
+import Router, { useRouter } from "next/router";
 import { FirebaseContext } from "../../firebase";
 
 const TopHeader = () => {
   const { usuario, firebase } = useContext(FirebaseContext);
+
+  const router = useRouter();
 
   return (
     <>
@@ -30,7 +33,10 @@ const TopHeader = () => {
                   </li>
                   <li className="d-flex align-items-center">
                     <i
-                      onClick={() => firebase.cerrarSesion()}
+                      onClick={() => {
+                        router.reload();
+                        return firebase.cerrarSesion();
+                      }}
                       className="fas fa-sign-out-alt btn"
                     ></i>
                   </li>

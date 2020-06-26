@@ -65,6 +65,7 @@ const Pizza = () => {
     isProduct
       ? dispatch(productQuantity("increase", producto))
       : dispatch(addCart(producto));
+    router.push("/checkout")
   };
 
     const handleCheck = e =>{
