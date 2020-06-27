@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import Layout from "../../components/layout/Layout";
 import Subheader from "../../components/ui/Subheader";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,85 +7,80 @@ import { useSelector, useDispatch } from "react-redux";
 import { addCart, productQuantity } from "../../redux/actions/cartActions";
 
 const Pizza = () => {
+  const [pizzaFinal, setPizzaFinal] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [price, setPrice] = useState(0);
+  const [tamaño, setTamaño] = useState(16);
+  const [cantidad, SetCantidad] = useState(1);
+  const [checked, setChecked] = useState({});
 
-  const [pizzaFinal, setPizzaFinal] = useState({})
-   const [ingredients, setIngredients] = useState([]);
-   const [price, setPrice] = useState(0);
-   const [tamaño, setTamaño] = useState(16);
-   const [cantidad, SetCantidad] = useState(1);
-   const [checked, setChecked] = useState({});
+  const dispatch = useDispatch();
 
+  // Routing para obtener el id actual
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
 
-   const dispatch = useDispatch();
+  const products = useSelector((state) => state.products["pizzas"]);
 
-   // Routing para obtener el id actual
-   const router = useRouter();
-   const { query: { id }} = router;
+  const pizza = products.find((product) => product.id == id);
 
-   const products = useSelector((state) => state.products['pizzas']);
-
-   const pizza = products.find((product) => product.id == id );
-
-    useEffect(() => {
-        if (pizza){
-            setPizzaFinal(pizza);
-            setPrice(pizza.precio);
-            setTamaño(pizza.tamaño);
-            SetCantidad(pizza.cantidad + 1);
-            pizza.ingredientes.others.forEach(ingrediente => {
-                setIngredients(state=>[...state, ingrediente]);
-                setChecked(state=>({...state, [ingrediente]: true}));
-            });
-        }
-
-    }, [pizza]);
-
-    useEffect(() => {
-      setPizzaFinal({
-        ...pizzaFinal,
-        ingredientes: {
-          ...pizzaFinal.ingredientes,
-          others: ingredients},
-        precio: price,
-        tamaño: tamaño,
-        cantidad: cantidad -1,
+  useEffect(() => {
+    if (pizza) {
+      setPizzaFinal(pizza);
+      setPrice(pizza.precio);
+      setTamaño(pizza.tamaño);
+      SetCantidad(pizza.cantidad + 1);
+      pizza.ingredientes.others.forEach((ingrediente) => {
+        setIngredients((state) => [...state, ingrediente]);
+        setChecked((state) => ({ ...state, [ingrediente]: true }));
       });
-    },[ingredients, price, tamaño, cantidad]);
-    
-    
+    }
+  }, [pizza]);
+
+  useEffect(() => {
+    setPizzaFinal({
+      ...pizzaFinal,
+      ingredientes: {
+        ...pizzaFinal.ingredientes,
+        others: ingredients,
+      },
+      precio: price,
+      tamaño: tamaño,
+      cantidad: cantidad - 1,
+    });
+  }, [ingredients, price, tamaño, cantidad]);
 
   const cartProducts = useSelector((state) => state.cart.products);
 
-  const isProduct = cartProducts.find(
-    (cartProduct) => cartProduct.id === id
-  );
+  const isProduct = cartProducts.find((cartProduct) => cartProduct.id === id);
 
   const addCartProduct = (e, producto) => {
     e.preventDefault();
     isProduct
       ? dispatch(productQuantity("increase", producto))
       : dispatch(addCart(producto));
-    router.push("/checkout")
+    router.push("/checkout");
   };
 
-    const handleCheck = e =>{
-        if (e.target.checked){
-            setIngredients([...ingredients, e.target.id]);
-            setChecked({...checked, [e.target.id]: true});
-
-        }else{
-            setIngredients(ingredients.filter(ingredient => ingredient !== e.target.id));
-            setChecked({...checked, [e.target.id]:false});
-        }
-    };
-    
-    
+  const handleCheck = (e) => {
+    if (e.target.checked) {
+      setIngredients([...ingredients, e.target.id]);
+      setChecked({ ...checked, [e.target.id]: true });
+    } else {
+      setIngredients(
+        ingredients.filter((ingredient) => ingredient !== e.target.id)
+      );
+      setChecked({ ...checked, [e.target.id]: false });
+    }
+  };
 
   return (
     <>
       <Layout>
         {/* <!-- Subheader Start --> */}
-        <Subheader pagina="Arma tu Pizza" />
+        <Subheader pagina="Arma tu Papizza" />
         {/* <!-- Subheader End --> */}
 
         <div className="section product-single">
@@ -94,14 +89,19 @@ const Pizza = () => {
               <div className="col-md-5">
                 {/* <!-- Main Thumb --> */}
                 <div className="product-thumb">
-                  <img src="https://via.placeholder.com/600" alt="pizza" />
+                  <img
+                    src={`../assets/img/productos/papizza.png`}
+                    alt="pizza"
+                  />
                 </div>
                 {/* <!-- /Main Thumb --> */}
               </div>
               <div className="col-md-7">
                 <div className="product-content">
                   {/* <!-- Product Title --> */}
-                  <h2 className="title">{pizza ? pizza.nombre : 'Personalizada'}</h2>
+                  <h2 className="title">
+                    {pizza ? pizza.nombre : "Personalizada"}
+                  </h2>
                   {/* <!-- /Product Title --> */}
 
                   {/* <!-- Price --> */}
@@ -127,9 +127,9 @@ const Pizza = () => {
                         id="size1"
                         className="sizes"
                         name="sizes"
-                        defaultChecked={(tamaño == 8)? true : false}
+                        defaultChecked={tamaño == 8 ? true : false}
                         style={{ display: "none" }}
-                        onClick={()=>setTamaño(8)}
+                        onClick={() => setTamaño(8)}
                       />
                       <label className="customize-size" htmlFor="size1">
                         8"
@@ -139,9 +139,9 @@ const Pizza = () => {
                         id="size2"
                         className="sizes"
                         name="sizes"
-                        defaultChecked={(tamaño == 12)? true : false}
+                        defaultChecked={tamaño == 12 ? true : false}
                         style={{ display: "none" }}
-                        onClick={()=>setTamaño(12)}
+                        onClick={() => setTamaño(12)}
                       />
                       <label className="customize-size" htmlFor="size2">
                         12"
@@ -151,9 +151,9 @@ const Pizza = () => {
                         id="size3"
                         className="sizes"
                         name="sizes"
-                        defaultChecked={(tamaño == 16)? true : false}
+                        defaultChecked={tamaño == 16 ? true : false}
                         style={{ display: "none" }}
-                        onClick={()=>setTamaño(16)}
+                        onClick={() => setTamaño(16)}
                       />
                       <label className="customize-size" htmlFor="size3">
                         16"
@@ -300,191 +300,206 @@ const Pizza = () => {
                         </div>
                       </div>
                       {/* <!-- Variation End --> */}
-                    
 
-                  {/* <!-- Variation Start --> */}
-                  <div className="col-lg-12 col-12">
-                    <div className="customize-variation-wrapper">
-                      <i className="flaticon-pizza-and-cutted-slice"></i>
-                      <h5 className="d-block">Ingredientes</h5>
-                      <div className="row d-flex">
-                        <div className="col-lg-6 col-12">
-                          <div
-                            className="customize-variation-item"
-                            data-price="2.00"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                defaultChecked={checked.peperoni?true:false}
-                                id="peperoni"
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="peperoni"
+                      {/* <!-- Variation Start --> */}
+                      <div className="col-lg-12 col-12">
+                        <div className="customize-variation-wrapper">
+                          <i className="flaticon-pizza-and-cutted-slice"></i>
+                          <h5 className="d-block">Ingredientes</h5>
+                          <div className="row d-flex">
+                            <div className="col-lg-6 col-12">
+                              <div
+                                className="customize-variation-item"
+                                data-price="2.00"
                               >
-                                Peperonni
-                              </label>
-                            </div>
-                            <span>+2.00$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="1.20"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="jamon"
-                                defaultChecked={checked.jamon?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="jamon"
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    defaultChecked={
+                                      checked.peperoni ? true : false
+                                    }
+                                    id="peperoni"
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="peperoni"
+                                  >
+                                    Peperonni
+                                  </label>
+                                </div>
+                                <span>+2.00$</span>
+                              </div>
+                              <div
+                                className="customize-variation-item"
+                                data-price="1.20"
                               >
-                                Jamon
-                              </label>
-                            </div>
-                            <span>+1.20$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.75"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="pollo"
-                                defaultChecked={checked.pollo?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="pollo"
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="jamon"
+                                    defaultChecked={
+                                      checked.jamon ? true : false
+                                    }
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="jamon"
+                                  >
+                                    Jamon
+                                  </label>
+                                </div>
+                                <span>+1.20$</span>
+                              </div>
+                              <div
+                                className="customize-variation-item"
+                                data-price="0.75"
                               >
-                                Pollo
-                              </label>
-                            </div>
-                            <span>+0.75$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.25"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="bacon"
-                                defaultChecked={checked.bacon?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="bacon"
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="pollo"
+                                    defaultChecked={
+                                      checked.pollo ? true : false
+                                    }
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="pollo"
+                                  >
+                                    Pollo
+                                  </label>
+                                </div>
+                                <span>+0.75$</span>
+                              </div>
+                              <div
+                                className="customize-variation-item"
+                                data-price="0.25"
                               >
-                                Bacon
-                              </label>
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="bacon"
+                                    defaultChecked={
+                                      checked.bacon ? true : false
+                                    }
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="bacon"
+                                  >
+                                    Bacon
+                                  </label>
+                                </div>
+                                <span>+0.25$</span>
+                              </div>
                             </div>
-                            <span>+0.25$</span>
-                          </div>
-                        </div>
-                        <div className="col-lg-6 col-12">
-                          <div
-                            className="customize-variation-item"
-                            data-price="2.00"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="pimenton"
-                                defaultChecked={checked.pimenton?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="pimenton"
+                            <div className="col-lg-6 col-12">
+                              <div
+                                className="customize-variation-item"
+                                data-price="2.00"
                               >
-                                Pimenton
-                              </label>
-                            </div>
-                            <span>+2.00$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="1.20"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="cebolla"
-                                defaultChecked={checked.cebolla?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="cebolla"
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="pimenton"
+                                    defaultChecked={
+                                      checked.pimenton ? true : false
+                                    }
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="pimenton"
+                                  >
+                                    Pimenton
+                                  </label>
+                                </div>
+                                <span>+2.00$</span>
+                              </div>
+                              <div
+                                className="customize-variation-item"
+                                data-price="1.20"
                               >
-                                Cebolla
-                              </label>
-                            </div>
-                            <span>+1.20$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.75"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="hongo"
-                                defaultChecked={checked.hongo?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="hongo"
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="cebolla"
+                                    defaultChecked={
+                                      checked.cebolla ? true : false
+                                    }
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="cebolla"
+                                  >
+                                    Cebolla
+                                  </label>
+                                </div>
+                                <span>+1.20$</span>
+                              </div>
+                              <div
+                                className="customize-variation-item"
+                                data-price="0.75"
                               >
-                                Hongos
-                              </label>
-                            </div>
-                            <span>+0.75$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.25"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="aceituana"
-                                defaultChecked={checked.aceituna?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="aceituana"
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="hongo"
+                                    defaultChecked={
+                                      checked.hongo ? true : false
+                                    }
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="hongo"
+                                  >
+                                    Hongos
+                                  </label>
+                                </div>
+                                <span>+0.75$</span>
+                              </div>
+                              <div
+                                className="customize-variation-item"
+                                data-price="0.25"
                               >
-                                Aceituna
-                              </label>
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="aceituana"
+                                    defaultChecked={
+                                      checked.aceituna ? true : false
+                                    }
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="aceituana"
+                                  >
+                                    Aceituna
+                                  </label>
+                                </div>
+                                <span>+0.25$</span>
+                              </div>
                             </div>
-                            <span>+0.25$</span>
                           </div>
                         </div>
                       </div>
+                      {/* <!-- Variation End --> */}
                     </div>
-                  </div>
-                  {/* <!-- Variation End --> */}
-                  </div>
                   </div>
                   {/* <!-- /Variations --> */}
 
@@ -493,11 +508,17 @@ const Pizza = () => {
                     <div className="form-group">
                       <label>Quantity</label>
                       <div className="qty">
-                        <span className="qty-subtract" onClick={()=>SetCantidad(cantidad - 1)}>
+                        <span
+                          className="qty-subtract"
+                          onClick={() => SetCantidad(cantidad - 1)}
+                        >
                           <i className="fas fa-minus"></i>
                         </span>
                         <input type="text" name="qty" defaultValue={cantidad} />
-                        <span className="qty-add" onClick={()=>SetCantidad(cantidad + 1)}>
+                        <span
+                          className="qty-add"
+                          onClick={() => SetCantidad(cantidad + 1)}
+                        >
                           <i className="fas fa-plus"></i>
                         </span>
                       </div>

@@ -1,91 +1,86 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import Layout from "../../components/layout/Layout";
 import Subheader from "../../components/ui/Subheader";
 import { useSelector, useDispatch } from "react-redux";
 // Actions de redux
 import { addCart, productQuantity } from "../../redux/actions/cartActions";
 
-const Pizza = () => {
+const Lasagna = () => {
+  const [lasagnaFinal, setLasagnaFinal] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [price, setPrice] = useState(0);
+  const [tamaño, setTamaño] = useState("regular");
+  const [cantidad, SetCantidad] = useState(1);
+  const [checked, setChecked] = useState({});
 
-  const [pizzaFinal, setPizzaFinal] = useState({})
-   const [ingredients, setIngredients] = useState([]);
-   const [price, setPrice] = useState(0);
-   const [tamaño, setTamaño] = useState(16);
-   const [cantidad, SetCantidad] = useState(1);
-   const [checked, setChecked] = useState({});
+  const dispatch = useDispatch();
 
+  // Routing para obtener el id actual
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
 
-   const dispatch = useDispatch();
+  const products = useSelector((state) => state.products["lasagnas"]);
 
-   // Routing para obtener el id actual
-   const router = useRouter();
-   const { query: { id }} = router;
+  const lasagna = products.find((product) => product.id == id);
 
-   const products = useSelector((state) => state.products['pizzas']);
-
-   const pizza = products.find((product) => product.id == id );
-
-    useEffect(() => {
-        if (pizza){
-            setPizzaFinal(pizza);
-            setPrice(pizza.precio);
-            setTamaño(pizza.tamaño);
-            SetCantidad(pizza.cantidad + 1);
-            pizza.ingredientes.others.forEach(ingrediente => {
-                setIngredients(state=>[...state, ingrediente]);
-                setChecked(state=>({...state, [ingrediente]: true}));
-            });
-        }
-
-    }, [pizza]);
-
-    useEffect(() => {
-      setPizzaFinal({
-        ...pizzaFinal,
-        ingredientes: {
-          ...pizzaFinal.ingredientes,
-          others: ingredients},
-        precio: price,
-        tamaño: tamaño,
-        cantidad: cantidad -1,
+  useEffect(() => {
+    if (lasagna) {
+      setLasagnaFinal(lasagna);
+      setPrice(lasagna.precio);
+      setTamaño(lasagna.tamaño);
+      SetCantidad(lasagna.cantidad + 1);
+      lasagna.ingredientes.others.forEach((ingrediente) => {
+        setIngredients((state) => [...state, ingrediente]);
+        setChecked((state) => ({ ...state, [ingrediente]: true }));
       });
-    },[ingredients, price, tamaño, cantidad]);
-    
-    
+    }
+  }, [lasagna]);
+
+  useEffect(() => {
+    setLasagnaFinal({
+      ...lasagnaFinal,
+      ingredientes: {
+        ...lasagnaFinal.ingredientes,
+        others: ingredients,
+      },
+      precio: price,
+      tamaño: tamaño,
+      cantidad: cantidad - 1,
+    });
+  }, [ingredients, price, tamaño, cantidad]);
 
   const cartProducts = useSelector((state) => state.cart.products);
 
-  const isProduct = cartProducts.find(
-    (cartProduct) => cartProduct.id === id
-  );
+  const isProduct = cartProducts.find((cartProduct) => cartProduct.id === id);
 
   const addCartProduct = (e, producto) => {
     e.preventDefault();
     isProduct
       ? dispatch(productQuantity("increase", producto))
       : dispatch(addCart(producto));
-    router.push("/checkout")
+    router.push("/checkout");
   };
 
-    const handleCheck = e =>{
-        if (e.target.checked){
-            setIngredients([...ingredients, e.target.id]);
-            setChecked({...checked, [e.target.id]: true});
-
-        }else{
-            setIngredients(ingredients.filter(ingredient => ingredient !== e.target.id));
-            setChecked({...checked, [e.target.id]:false});
-        }
-    };
-    
-    
+  const handleCheck = (e) => {
+    if (e.target.checked) {
+      setIngredients([e.target.id]);
+      setChecked({ ...checked, [e.target.id]: true });
+    } else {
+      setIngredients(
+        ingredients.filter((ingredient) => ingredient !== e.target.id)
+      );
+      setChecked({ ...checked, [e.target.id]: false });
+    }
+  };
 
   return (
     <>
       <Layout>
         {/* <!-- Subheader Start --> */}
-        <Subheader pagina="Arma tu Pizza" />
+        <Subheader pagina="Lasagna" />
         {/* <!-- Subheader End --> */}
 
         <div className="section product-single">
@@ -94,19 +89,29 @@ const Pizza = () => {
               <div className="col-md-5">
                 {/* <!-- Main Thumb --> */}
                 <div className="product-thumb">
-                  <img src="https://via.placeholder.com/600" alt="pizza" />
+                  <img
+                    src={`../assets/img/productos/lasagna.png`}
+                    alt="lasagna"
+                  />
                 </div>
                 {/* <!-- /Main Thumb --> */}
               </div>
               <div className="col-md-7">
                 <div className="product-content">
                   {/* <!-- Product Title --> */}
-                  <h2 className="title">{pizza ? pizza.nombre : 'Personalizada'}</h2>
+                  <h2 className="title">
+                    {lasagna
+                      ? `${
+                          lasagna.categoria[0].toUpperCase() +
+                          lasagna.categoria.slice(1)
+                        } de ${lasagna.nombre}`
+                      : "Personalizada"}
+                  </h2>
                   {/* <!-- /Product Title --> */}
 
                   {/* <!-- Price --> */}
                   <div className="price-wrapper">
-                    <p className="product-price">{pizza ? price : 10.99}$</p>
+                    <p className="product-price">{lasagna ? price : 9.0}$</p>
                   </div>
                   {/* <!-- /Price --> */}
 
@@ -124,40 +129,40 @@ const Pizza = () => {
                       <h5>Size: </h5>
                       <input
                         type="radio"
-                        id="size1"
+                        id="regular"
                         className="sizes"
                         name="sizes"
-                        defaultChecked={(tamaño == 8)? true : false}
+                        defaultChecked={tamaño == "regular" ? true : false}
                         style={{ display: "none" }}
-                        onClick={()=>setTamaño(8)}
+                        onClick={() => setTamaño("regular")}
                       />
-                      <label className="customize-size" htmlFor="size1">
-                        8"
+                      <label className="customize-size" htmlFor="regular">
+                        Regular
                       </label>
                       <input
                         type="radio"
-                        id="size2"
+                        id="grande"
                         className="sizes"
                         name="sizes"
-                        defaultChecked={(tamaño == 12)? true : false}
+                        defaultChecked={tamaño == "grande" ? true : false}
                         style={{ display: "none" }}
-                        onClick={()=>setTamaño(12)}
+                        onClick={() => setTamaño("grande")}
                       />
-                      <label className="customize-size" htmlFor="size2">
-                        12"
+                      <label className="customize-size" htmlFor="grande">
+                        Grande
                       </label>
-                      <input
+                      {/* <input
                         type="radio"
                         id="size3"
                         className="sizes"
                         name="sizes"
-                        defaultChecked={(tamaño == 16)? true : false}
+                        defaultChecked={tamaño == 16 ? true : false}
                         style={{ display: "none" }}
-                        onClick={()=>setTamaño(16)}
+                        onClick={() => setTamaño(16)}
                       />
                       <label className="customize-size" htmlFor="size3">
                         16"
-                      </label>
+                      </label> */}
                     </div>
 
                     <div className="row">
@@ -166,66 +171,23 @@ const Pizza = () => {
                         <div className="customize-variation-wrapper">
                           <i className="flaticon-bread-roll"></i>
                           <h5>Salsa</h5>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.00"
-                          >
+                          <div className="customize-variation-item">
                             <div className="custom-control custom-radio">
                               <input
                                 type="radio"
                                 id="salsa0"
                                 name="salsa"
                                 className="custom-control-input"
+                                defaultChecked
                               />
                               <label
                                 className="custom-control-label"
                                 htmlFor="salsa0"
                               >
-                                Poca
+                                Tradicional
                               </label>
                             </div>
                             <span>+0.00$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.00"
-                          >
-                            <div className="custom-control custom-radio">
-                              <input
-                                type="radio"
-                                defaultChecked
-                                id="salsa1"
-                                name="salsa"
-                                className="custom-control-input"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="salsa1"
-                              >
-                                Regular
-                              </label>
-                            </div>
-                            <span>+0.00$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="2.00"
-                          >
-                            <div className="custom-control custom-radio">
-                              <input
-                                type="radio"
-                                id="salsa2"
-                                name="salsa"
-                                className="custom-control-input"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="salsa2"
-                              >
-                                Doble
-                              </label>
-                            </div>
-                            <span>+2.00$</span>
                           </div>
                         </div>
                       </div>
@@ -236,255 +198,105 @@ const Pizza = () => {
                         <div className="customize-variation-wrapper">
                           <i className="flaticon-cheese"></i>
                           <h5>Queso</h5>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.00"
-                          >
+                          <div className="customize-variation-item">
                             <div className="custom-control custom-radio">
                               <input
                                 type="radio"
                                 id="queso0"
                                 name="queso"
                                 className="custom-control-input"
+                                defaultChecked
                               />
                               <label
                                 className="custom-control-label"
                                 htmlFor="queso0"
-                              >
-                                Poco
-                              </label>
-                            </div>
-                            <span>+0.00$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.00"
-                          >
-                            <div className="custom-control custom-radio">
-                              <input
-                                type="radio"
-                                defaultChecked
-                                id="queso1"
-                                name="queso"
-                                className="custom-control-input"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="queso1"
                               >
                                 Regular
                               </label>
                             </div>
                             <span>+0.00$</span>
                           </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="2.00"
-                          >
-                            <div className="custom-control custom-radio">
-                              <input
-                                type="radio"
-                                id="queso2"
-                                name="queso"
-                                className="custom-control-input"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="queso2"
-                              >
-                                Doble
-                              </label>
+                        </div>
+                      </div>
+                      {/* <!-- Variation End --> */}
+
+                      {/* <!-- Variation Start --> */}
+                      <div className="col-lg-12 col-12">
+                        <div className="customize-variation-wrapper">
+                          <i className="flaticon-pizza-and-cutted-slice"></i>
+                          <h5 className="d-block">Ingrediente</h5>
+                          <div className="row d-flex">
+                            <div className="col-lg-6 col-12 d-flex">
+                              <div className="customize-variation-item">
+                                <div className="custom-control custom-radio">
+                                  <input
+                                    type="radio"
+                                    className="custom-control-input"
+                                    defaultChecked={
+                                      checked.peperonni ? true : false
+                                    }
+                                    id="peperoni"
+                                    name="ingrediente"
+                                    onChange={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="peperoni"
+                                  >
+                                    Peperonni
+                                  </label>
+                                </div>
+                                {/* <span>+0.00$</span> */}
+                              </div>
+                              <div className="customize-variation-item ml-5">
+                                <div className="custom-control custom-radio">
+                                  <input
+                                    type="radio"
+                                    className="custom-control-input"
+                                    id="pollo"
+                                    name="ingrediente"
+                                    defaultChecked={
+                                      checked.pollo ? true : false
+                                    }
+                                    onChange={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="pollo"
+                                  >
+                                    Pollo
+                                  </label>
+                                </div>
+                                {/* <span>+2.00$</span> */}
+                              </div>
                             </div>
-                            <span>+2.00$</span>
+                            {/* <div className="col-lg-6 col-12">
+                              <div className="customize-variation-item">
+                                <div className="custom-control custom-radio">
+                                  <input
+                                    type="radio"
+                                    className="custom-control-input"
+                                    id="pimenton"
+                                    defaultChecked={
+                                      checked.pimenton ? true : false
+                                    }
+                                    onClick={(e) => handleCheck(e)}
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="pimenton"
+                                  >
+                                    Pimenton
+                                  </label>
+                                </div>
+                                <span>+2.00$</span> 
+                              </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
                       {/* <!-- Variation End --> */}
-                    
-
-                  {/* <!-- Variation Start --> */}
-                  <div className="col-lg-12 col-12">
-                    <div className="customize-variation-wrapper">
-                      <i className="flaticon-pizza-and-cutted-slice"></i>
-                      <h5 className="d-block">Ingredientes</h5>
-                      <div className="row d-flex">
-                        <div className="col-lg-6 col-12">
-                          <div
-                            className="customize-variation-item"
-                            data-price="2.00"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                defaultChecked={checked.peperoni?true:false}
-                                id="peperoni"
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="peperoni"
-                              >
-                                Peperonni
-                              </label>
-                            </div>
-                            <span>+2.00$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="1.20"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="jamon"
-                                defaultChecked={checked.jamon?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="jamon"
-                              >
-                                Jamon
-                              </label>
-                            </div>
-                            <span>+1.20$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.75"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="pollo"
-                                defaultChecked={checked.pollo?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="pollo"
-                              >
-                                Pollo
-                              </label>
-                            </div>
-                            <span>+0.75$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.25"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="bacon"
-                                defaultChecked={checked.bacon?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="bacon"
-                              >
-                                Bacon
-                              </label>
-                            </div>
-                            <span>+0.25$</span>
-                          </div>
-                        </div>
-                        <div className="col-lg-6 col-12">
-                          <div
-                            className="customize-variation-item"
-                            data-price="2.00"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="pimenton"
-                                defaultChecked={checked.pimenton?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="pimenton"
-                              >
-                                Pimenton
-                              </label>
-                            </div>
-                            <span>+2.00$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="1.20"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="cebolla"
-                                defaultChecked={checked.cebolla?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="cebolla"
-                              >
-                                Cebolla
-                              </label>
-                            </div>
-                            <span>+1.20$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.75"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="hongo"
-                                defaultChecked={checked.hongo?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="hongo"
-                              >
-                                Hongos
-                              </label>
-                            </div>
-                            <span>+0.75$</span>
-                          </div>
-                          <div
-                            className="customize-variation-item"
-                            data-price="0.25"
-                          >
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="aceituana"
-                                defaultChecked={checked.aceituna?true:false}
-                                onClick={e=>handleCheck(e)}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="aceituana"
-                              >
-                                Aceituna
-                              </label>
-                            </div>
-                            <span>+0.25$</span>
-                          </div>
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                  {/* <!-- Variation End --> */}
-                  </div>
                   </div>
                   {/* <!-- /Variations --> */}
 
@@ -493,11 +305,17 @@ const Pizza = () => {
                     <div className="form-group">
                       <label>Quantity</label>
                       <div className="qty">
-                        <span className="qty-subtract" onClick={()=>SetCantidad(cantidad - 1)}>
+                        <span
+                          className="qty-subtract"
+                          onClick={() => SetCantidad(cantidad - 1)}
+                        >
                           <i className="fas fa-minus"></i>
                         </span>
                         <input type="text" name="qty" defaultValue={cantidad} />
-                        <span className="qty-add" onClick={()=>SetCantidad(cantidad + 1)}>
+                        <span
+                          className="qty-add"
+                          onClick={() => SetCantidad(cantidad + 1)}
+                        >
                           <i className="fas fa-plus"></i>
                         </span>
                       </div>
@@ -506,7 +324,7 @@ const Pizza = () => {
                       // href="/checkout"
                       name="button"
                       className="btn-custom secondary"
-                      onClick={(e) => addCartProduct(e, pizzaFinal)}
+                      onClick={(e) => addCartProduct(e, lasagnaFinal)}
                     >
                       {" "}
                       Order <i className="fas fa-shopping-cart"></i>{" "}
@@ -547,4 +365,4 @@ const Pizza = () => {
   );
 };
 
-export default Pizza;
+export default Lasagna;

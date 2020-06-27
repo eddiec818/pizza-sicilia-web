@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/layout/Layout";
 import Subheader from "../components/ui/Subheader";
-import CategoryMenu from "../components/layout/CategoryMenu";
 import CategoryMenuItem from "../components/ui/CategoryMenuItem";
 
 import Slider from "react-slick";
@@ -53,6 +52,14 @@ const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const categorias = useSelector((state) => state.products);
+
+  const categoryMenuItem = (categoria) =>
+    categorias[categoria].map(
+      (producto) =>
+        producto.disponibilidad && (
+          <CategoryMenuItem key={producto.id} producto={producto} />
+        )
+    );
 
   return (
     <>
@@ -107,25 +114,14 @@ const Menu = () => {
               {
                 {
                   all: Object.keys(categorias).map((categoria) =>
-                    categorias[categoria].map((producto) => (
-                      <CategoryMenuItem key={producto.id} producto={producto} />
-                    ))
+                    categoryMenuItem(categoria)
                   ),
-                  pizzas: categorias["pizzas"].map((producto) => (
-                    <CategoryMenuItem key={producto.id} producto={producto} />
-                  )),
-                  calzones: categorias["calzones"].map((producto) => (
-                    <CategoryMenuItem key={producto.id} producto={producto} />
-                  )),
-                  papizzas: categorias["papizzas"].map((producto) => (
-                    <CategoryMenuItem key={producto.id} producto={producto} />
-                  )),
-                  lasagnas: categorias["lasagnas"].map((producto) => (
-                    <CategoryMenuItem key={producto.id} producto={producto} />
-                  )),
-                  alitas: categorias["alitas"].map((producto) => (
-                    <CategoryMenuItem key={producto.id} producto={producto} />
-                  )),
+                  pizzas: categoryMenuItem("pizzas"),
+                  calzones: categoryMenuItem("calzones"),
+                  papizzas: categoryMenuItem("papizzas"),
+                  lasagnas: categoryMenuItem("lasagnas"),
+                  alitas: categoryMenuItem("alitas"),
+                  bebidas: categoryMenuItem("bebidas"),
                 }[selectedCategory]
               }
             </div>

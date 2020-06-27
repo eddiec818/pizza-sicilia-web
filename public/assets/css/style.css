@@ -690,9 +690,9 @@ textarea {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.form-group {
+/* .form-group {
   margin-bottom: 20px;
-}
+} */
 .input-with-icon {
   position: relative;
 }
@@ -1473,7 +1473,7 @@ table img {
 }
 .cart-sidebar-item {
   position: relative;
-  padding: 40px 0;
+  padding: 10px 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1503,7 +1503,7 @@ table img {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  width: 270px;
+  width: 80%;
 }
 .cart-sidebar-item .media span {
   font-weight: 600;
@@ -1511,7 +1511,7 @@ table img {
   line-height: 28px;
 }
 .cart-sidebar-item .media h5 {
-  width: 160px;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
@@ -4192,7 +4192,7 @@ td.quantity {
 .checkout-login-div {
   background-color: #f9f9f9;
   padding: 20px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   border-radius: 8px;
 }
 .checkout-login-div p {
@@ -4513,7 +4513,7 @@ td.quantity {
   -o-transition: 0.3s;
   transition: 0.3s;
   font-size: 13px;
-  width: 40px;
+  padding: 10px;
   height: 40px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -5238,8 +5238,8 @@ td.quantity {
     flex-wrap: wrap;
   }
   .cart-sidebar-item .media {
-    width: 100%;
-    margin-bottom: 20px;
+    width: 70%;
+    margin-bottom: 5px;
   }
   .cart-sidebar-body .slimScrollDiv {
     padding-right: 20px;
@@ -5363,6 +5363,10 @@ td.quantity {
   .modal-lg {
     max-width: 500px;
   }
+  .section{
+    padding-top: 0;
+    padding-bottom: 40px;
+  }
   .search-form-wrapper form {
     width: 100%;
   }
@@ -5388,7 +5392,6 @@ td.quantity {
   }
   .cart-sidebar-footer .btn-custom {
     display: block;
-    margin-top: 20px;
   }
   .nav {
     display: block;

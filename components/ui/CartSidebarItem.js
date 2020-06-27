@@ -4,7 +4,14 @@ import { clearProduct, productQuantity } from "../../redux/actions/cartActions";
 import { useDispatch } from "react-redux";
 
 const CartSidebarItem = ({ producto }) => {
-  const { nombre, precio, cantidad, tamaño, ingredientes } = producto;
+  const {
+    nombre,
+    categoria,
+    precio,
+    cantidad,
+    tamaño,
+    ingredientes,
+  } = producto;
 
   const precioTotal = precio * cantidad;
 
@@ -14,6 +21,25 @@ const CartSidebarItem = ({ producto }) => {
     cantidad > 1
       ? dispatch(productQuantity("decrease", producto))
       : dispatch(clearProduct(producto));
+  };
+
+  const salsaDeTomate = () => {
+    if (ingredientes.salsa == 0) {
+      return "Poca salsa de Tomate";
+    } else if (ingredientes.salsa == 2) {
+      return "Salsa de Tomate Extra";
+    } else {
+      return "Salsa de Tomate";
+    }
+  };
+  const queso = () => {
+    if (ingredientes.queso == 0) {
+      return "Poco Queso Mozarella";
+    } else if (ingredientes.queso == 2) {
+      return "Queso Mozarella Extra";
+    } else {
+      return "Queso Mozarella";
+    }
   };
 
   return (
@@ -27,20 +53,40 @@ const CartSidebarItem = ({ producto }) => {
             <h5>
               {" "}
               <a href="/menu" title={nombre}>
-                {nombre}
+                {`${
+                  categoria[0].toUpperCase() + categoria.slice(1)
+                } de ${nombre}`}
               </a>{" "}
             </h5>
-            <span>
-              {cantidad}x{precio}$
-            </span>
+            <p style={{ fontSize: "0.7rem" }}>
+              {salsaDeTomate()}, {queso()}, {ingredientes.others.join(", ")}.
+            </p>
           </div>
         </div>
-        <div className="cart-sidebar-item-meta">
-          <span>{tamaño} Inches</span>
-          <span>Extra Cheese</span>
-          <span>Cheese Crust</span>
+        {/* <div className="cart-sidebar-item-meta">
+          {categoria == "pizza" ? (
+            <span>{tamaño} Pulgadas</span>
+          ) : (
+            tamaño && <span>{tamaño}</span>
+          )}
+          {categoria == "pizza" && ingredientes.salsa == 1 && (
+            <span>Extra Salsa</span>
+          )}
+          {categoria == "pizza" && ingredientes.queso == 1 && (
+            <span>Extra Queso</span>
+          )}
+        </div> */}
+        <div className="cart-sidebar-price">
+          <span
+            className="d-block text-center"
+            style={{ fontSize: "0.7rem", fontWeight: "550" }}
+          >
+            {cantidad} x {precio}$
+          </span>
+          <span className="d-block text-center" style={{ fontSize: "1.2rem" }}>
+            {precioTotal}$
+          </span>
         </div>
-        <div className="cart-sidebar-price">{precioTotal}$</div>
         <div
           onClick={() => clearCartProduct(producto)}
           className="close-btn btn"

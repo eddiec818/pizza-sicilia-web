@@ -24,8 +24,11 @@ const CategoryMenuItem = ({ producto }) => {
       {/* <!-- Product Start --> */}
       <div className="col-lg-3 col-md-4 col-sm-6 pizzas offers">
         <div className="product">
-          <a className="product-thumb" href="menu-item-v1.html">
-            <img src="https://via.placeholder.com/300" alt="menu item" />
+          <a className="product-thumb" href={`/${categoria}/${id}`}>
+            <img
+              src={`assets/img/productos/${categoria}.png`}
+              alt="menu item"
+            />
           </a>
           <div className="product-body">
             <div className="product-desc">
