@@ -8,7 +8,7 @@ const Locations = () => {
     <>
       <Layout>
         {/* <!-- Subheader Start --> */}
-        <Subheader pagina="Ubicaiones" />
+        <Subheader pagina="Ubicaciones" />
         {/* <!-- Subheader End --> */}
 
         {/* <!-- Locations Wrapper Start --> */}

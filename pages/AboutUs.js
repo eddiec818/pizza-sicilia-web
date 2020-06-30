@@ -1,13 +1,13 @@
 import React from "react";
 import Layout from "../components/layout/Layout";
-import Subheader from "../Components/ui/Subheader";
+import Subheader from "../components/ui/Subheader";
 
 const AboutUs = () => {
   return (
     <>
       <Layout>
         {/* <!-- Subheader Start --> */}
-        <Subheader pagina="About Us" />
+        <Subheader pagina="Nosotros" />
         {/* <!-- Subheader End --> */}
 
         {/* <!-- About us start --> */}

@@ -16,7 +16,7 @@ const Header = () => {
             {/* <!-- Logo --> */}
             <a className="navbar-brand" href="index.html">
               {" "}
-              <img src="https://via.placeholder.com/135x73" alt="logo" />{" "}
+              <img src="assets/img/misc/1.png" alt="logo" />{" "}
             </a>
             {/* <!-- Menu --> */}
             <ul className="navbar-nav">
@@ -44,9 +44,9 @@ const Header = () => {
                   <span className="cart-item-count">{cartNumber}</span>
                   <i className="flaticon-shopping-bag"></i>
                 </li>
-                <li className="search-dropdown-wrapper search-trigger">
+                {/* <li className="search-dropdown-wrapper search-trigger">
                   <i className="flaticon-search"></i>
-                </li>
+                </li> */}
               </ul>
               {/* <!-- Toggler --> */}
               <div className="aside-toggler aside-trigger">

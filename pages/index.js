@@ -8,11 +8,15 @@ const Home = () => {
         {/* <!-- Banner Start --> */}
         <div className="banner banner-1 banner-4 light-banner">
           <div className="banner-item">
-            <div className="banner-inner bg-cover bg-center dark-overlay dark-overlay-2">
+            <div
+              className="banner-inner bg-cover bg-center dark-overlay dark-overlay-2"
+              style={{
+                backgroundImage: "url(assets/img/bg/fondo-prueba.jpg)",
+              }}
+            >
               {" "}
-              {/* style="background-image: url('https://via.placeholder.com/1920x1280') */}
               <div className="container">
-                <img src="assets/img/misc/1.png" alt="img" />
+                {/* <img src="assets/img/misc/1.png" alt="img" /> */}
                 <h1 className="title">
                   Modernizing The Traditional Italian Pizza
                 </h1>
@@ -20,8 +24,8 @@ const Home = () => {
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry
                 </p>
-                <a href="#" className="btn-custom primary">
-                  View Menu
+                <a href="/menu" className="btn-custom primary">
+                  Ver Menu
                 </a>
               </div>
             </div>
@@ -84,7 +88,6 @@ const Home = () => {
                   <div className="ct-mini-menu-top">
                     <h5>Pepperoni Pizza</h5>
                     <div className="ct-mini-menu-dots"></div>
-                    <span className="custom-primary">14.99$</span>
                   </div>
                   <div className="ct-mini-menu-bottom">
                     <p>

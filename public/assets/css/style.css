@@ -1072,7 +1072,7 @@ table img {
   font-weight: 600;
   margin-right: 10px;
   border-radius: 8px;
-  color: #1d2228;
+  color: #fff;
 }
 .nav-link.active {
   background-color: #ed4e53;
@@ -1182,7 +1182,7 @@ table img {
   -ms-flex-align: center;
   align-items: center;
   padding: 30px 20px;
-  color: #1d2228;
+  color: #fff;
   font-weight: 600;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -1281,7 +1281,7 @@ table img {
   margin: 0;
 }
 .header-controls-inner li {
-  color: #1d2228;
+  color: #fff;
 }
 .header-controls-inner li.cart-dropdown-wrapper,
 .header-controls-inner li.search-dropdown-wrapper {
@@ -1419,7 +1419,7 @@ table img {
   position: fixed;
   top: 0;
   right: -1200px;
-  width: 60vw;
+  width: 40vw;
   max-width: 1200px;
   height: 100%;
   background-color: #fff;
@@ -1731,7 +1731,7 @@ table img {
 }
 
 .top-header {
-  background-color: #1d2228;
+  background-color: rgb(0, 90, 0);
 }
 .top-header-inner {
   display: -webkit-box;
@@ -1759,7 +1759,7 @@ table img {
 .top-header-nav li a {
   color: #fff;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 0.85rem;
 }
 .top-header-nav li a:hover {
   color: #ed4e53;
@@ -1777,16 +1777,16 @@ table img {
   -ms-flex-align: center;
   align-items: center;
   padding: 0 10px;
-  background-color: #ed4e53;
+  background-color: red;
   color: #fff;
 }
 .top-header .header-cta li a:hover {
   color: #fff;
   background-color: #da464a;
 }
-.top-header-contacts {
+/* .top-header-contacts {
   padding: 10px 0;
-}
+} */
 .main-header.header-fw {
   padding: 0 75px;
 }
@@ -2001,7 +2001,7 @@ table img {
   justify-content: space-between;
   margin-bottom: 60px;
 }
-.footer-middle a,
+
 .footer-middle i {
   color: #515151;
 }
@@ -2011,10 +2011,11 @@ table img {
 .footer-bottom ul {
   display: -webkit-box;
   display: -ms-flexbox;
+  font-size: 0.85rem;
   display: flex;
   padding: 20px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+  margin-bottom: 0px;
 }
 .footer-bottom ul li {
   margin: 0;
@@ -2183,12 +2184,13 @@ table img {
   color: #fff;
 }
 .footer-offer {
-  margin-top: 15px;
+  padding: 3rem 0px;
 }
 .footer-offer p {
   font-weight: 600;
   font-size: 13px;
-  margin-bottom: 15px;
+  align-self: center;
+  margin-bottom: 0px;
 }
 .footer-offer .btn-custom,
 .footer-offer .btn-custom:hover {
@@ -2212,14 +2214,15 @@ table img {
 .ct-footer.footer-dark .footer-widget ul li a {
   color: #b7b7b7;
 }
-.ct-footer.footer-dark .footer-bottom ul {
+/* .ct-footer.footer-dark .footer-bottom ul {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
+} */
 .business-hours {
-  background: #222;
-  padding: 40px 14px;
+  background: rgb(0, 90, 0);
+  padding: 15px 14px;
   margin-top: -15px;
   position: relative;
+  top: -80px;
 }
 .business-hours:before {
   content: "";
@@ -2234,22 +2237,25 @@ table img {
 }
 .business-hours .title {
   font-size: 20px;
-  color: #bbb;
+  color: #fff;
   text-transform: uppercase;
   padding-left: 5px;
-  border-left: 4px solid #ffac0c;
+  border-left: 4px solid red;
 }
 .business-hours li {
-  color: #888;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
   line-height: 30px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid gray;
 }
 .business-hours li:last-child {
   border-bottom: none;
 }
 .business-hours .opening-hours li.today {
-  color: #ffac0c;
+  color: red;
 }
+
 
 /*======================
 4. Banner
@@ -2263,7 +2269,7 @@ table img {
   padding: 120px 0;
   background-size: cover;
   background-position: center;
-  min-height: 600px;
+  min-height: 500px;
 }
 .banner > .container {
   position: absolute;
@@ -2278,7 +2284,7 @@ table img {
   font-size: 62px;
   line-height: 80px;
   font-family: "Oswald", sans-serif;
-  margin-bottom: 20px;
+  margin: 40px;
   text-transform: uppercase;
 }
 .banner .subtitle {
@@ -2755,7 +2761,7 @@ table img {
 }
 .banner.banner-4 .banner-inner {
   text-align: center;
-  min-height: 580px;
+  min-height: 520px;
   display: block;
 }
 .banner.banner-4 .banner-inner h1,
@@ -5289,6 +5295,9 @@ td.quantity {
     width: 40px;
     height: 40px;
   }
+  .footer-offer {
+    padding: 0px;
+}
   .footer-widget {
     text-align: center;
   }

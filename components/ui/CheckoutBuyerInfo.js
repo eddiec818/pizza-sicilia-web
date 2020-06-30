@@ -84,6 +84,17 @@ const CheckoutBuyerInfo = ({ usuario, firebase }) => {
     });
   };
 
+  const handleSelectChange = (e) => {
+    const optionPrice = e.target.options[e.target.selectedIndex].dataset.precio;
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      [e.target.name]: {
+        name: e.target.value,
+        precio: optionPrice,
+      },
+    });
+  };
+
   const handleCheck = (e) => {
     setCurrentUserInfo({
       ...currentUserInfo,
@@ -105,14 +116,16 @@ const CheckoutBuyerInfo = ({ usuario, firebase }) => {
     }
   };
 
-  const forgetUserInfo = () =>{
-     firebase.db.collection("usersInfo")
-      .doc(userInfo.id).delete()
+  const forgetUserInfo = () => {
+    firebase.db
+      .collection("usersInfo")
+      .doc(userInfo.id)
+      .delete()
       .then(() => router.reload())
-      .catch(error => {
-        console.log('Error obteniendo el documento', error);
+      .catch((error) => {
+        console.log("Error obteniendo el documento", error);
       });
-  }
+  };
 
   useEffect(() => {
     dispatch(addUserSuccess(currentUserInfo));
@@ -125,40 +138,34 @@ const CheckoutBuyerInfo = ({ usuario, firebase }) => {
     <>
       <div className="d-flex justify-content-between">
         <h4>Billing Details</h4>
-        {Object.keys(userInfo).length > 0 && (
-          
-            currentUserInfo.saveInfo
-              ? (<a 
-                className="btn"
-                onClick={() => forgetUserInfo()}
-                >
-                  Olvidar datos de Entrega
-                </a>)
-              : (<a 
-                className="btn"
-                onClick={() => router.reload()}
-                >
-                  Usar datos predeterminados
-                </a>)
-          
+        {Object.keys(userInfo).length > 0 &&
+          (currentUserInfo.saveInfo ? (
+            <span className="btn" onClick={() => forgetUserInfo()}>
+              Olvidar datos de Entrega
+            </span>
+          ) : (
+            <span className="btn" onClick={() => router.reload()}>
+              Usar datos predeterminados
+            </span>
+          ))}
+        {usuario && (
+          <div className="custom-checkbox">
+            <input
+              type="checkbox"
+              className="custom-control-input"
+              id="saveInfo"
+              checked={currentUserInfo.saveInfo}
+              onChange={handleCheck}
+            />
+            <label className="custom-control-label" htmlFor="saveInfo">
+              {Object.keys(userInfo).length > 0
+                ? !currentUserInfo.saveInfo
+                  ? "Recordar datos de entrega"
+                  : "Usar otros datos de entrega"
+                : "Recordar datos de entrega"}
+            </label>
+          </div>
         )}
-        <div className="custom-checkbox">
-          <input
-            type="checkbox"
-            className="custom-control-input"
-            id="saveInfo"
-            checked={currentUserInfo.saveInfo}
-            onChange={handleCheck}
-          />
-          <label className="custom-control-label" htmlFor="saveInfo">
-            { Object.keys(userInfo).length > 0 ?
-              (!currentUserInfo.saveInfo
-              ? "Recordar datos de entrega"
-              : "Usar otros datos de entrega")
-              : ("Recordar datos de entrega")
-            }
-          </label>
-        </div>
       </div>
       <div className="row">
         <div className="form-group col-xl-6">
@@ -220,27 +227,47 @@ const CheckoutBuyerInfo = ({ usuario, firebase }) => {
           <select
             className="form-control"
             name="zone"
-            onChange={handleChange}
+            onChange={handleSelectChange}
             disabled={disabled.zone ? true : false}
           >
             {userInfo.zone && (
-              <option defaultValue={userInfo.zone} selected>
-                {capitalize(userInfo.zone)}
+              <option defaultValue={userInfo.zone.name} selected>
+                {capitalize(userInfo.zone.name)}
               </option>
             )}
             <option value="" hidden>
               Seleccionar
             </option>
-            <option value="alborada">Alborada</option>
-            <option value="arcoiris">Arcoiris</option>
-            <option value="cativa">Cativa</option>
-            <option value="city">Ciudad de Colon</option>
-            <option value="davis">PanamaDavis</option>
-            <option value="espinar">Espinar</option>
-            <option value="margarita">Margarita</option>
-            <option value="puerto">Puerto Escondido</option>
-            <option value="sanjudas">San Judas</option>
-            <option value="sanmartin">San Martin</option>
+            <option data-precio={3} value="alborada">
+              Alborada
+            </option>
+            <option data-precio={3} value="arcoiris">
+              Arcoiris
+            </option>
+            <option data-precio={3} value="cativa">
+              Cativa
+            </option>
+            <option data-precio={3} value="city">
+              Ciudad de Colon
+            </option>
+            <option data-precio={3} value="davis">
+              PanamaDavis
+            </option>
+            <option data-precio={3} value="espinar">
+              Espinar
+            </option>
+            <option data-precio={3} value="margarita">
+              Margarita
+            </option>
+            <option data-precio={3} value="puerto">
+              Puerto Escondido
+            </option>
+            <option data-precio={3} value="sanjudas">
+              San Judas
+            </option>
+            <option data-precio={3} value="sanmartin">
+              San Martin
+            </option>
           </select>
         </div>
         <div className="form-group col-xl-6">

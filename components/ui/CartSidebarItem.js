@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 const CartSidebarItem = ({ producto }) => {
   const {
+    id,
     nombre,
     categoria,
     precio,
@@ -52,7 +53,7 @@ const CartSidebarItem = ({ producto }) => {
           <div className="media-body">
             <h5>
               {" "}
-              <a href="/menu" title={nombre}>
+              <a href={`/${categoria}/${id}`} title={nombre}>
                 {`${
                   categoria[0].toUpperCase() + categoria.slice(1)
                 } de ${nombre}`}
@@ -81,10 +82,10 @@ const CartSidebarItem = ({ producto }) => {
             className="d-block text-center"
             style={{ fontSize: "0.7rem", fontWeight: "550" }}
           >
-            {cantidad} x {precio}$
+            {cantidad} x {precio.toFixed(2)}$
           </span>
           <span className="d-block text-center" style={{ fontSize: "1.2rem" }}>
-            {precioTotal}$
+            {precioTotal.toFixed(2)}$
           </span>
         </div>
         <div

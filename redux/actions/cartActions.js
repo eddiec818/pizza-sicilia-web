@@ -4,6 +4,7 @@ import {
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
   CLEAR_PRODUCT,
+  CLEAR_CART,
 } from "../actions/types";
 
 export const addCart = (product) => {
@@ -29,6 +30,14 @@ export const clearProduct = (product) => {
     dispatch({
       type: CLEAR_PRODUCT,
       payload: product,
+    });
+  };
+};
+
+export const clearCart = () => {
+  return (dispatch) => {
+    dispatch({
+      type: CLEAR_CART,
     });
   };
 };

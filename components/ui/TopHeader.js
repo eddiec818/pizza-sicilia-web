@@ -17,7 +17,10 @@ const TopHeader = () => {
               <ul className="top-header-nav">
                 <li>
                   {" "}
-                  <a className="p-0" href="tel:+123456789">
+                  <a
+                    className="p-0"
+                    href="https://wa.me/50763412460?text=Quisiera%20hacer%20una%20orden"
+                  >
                     <i className="fab fa-whatsapp mr-2"></i>+507 63412460
                   </a>{" "}
                 </li>

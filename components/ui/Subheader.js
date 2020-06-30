@@ -3,9 +3,13 @@ import React from "react";
 const Subheader = ({ pagina }) => {
   return (
     <>
-      <div className="subheader dark-overlay dark-overlay-2">
+      <div
+        className="subheader dark-overlay dark-overlay-2"
+        style={{
+          backgroundImage: "url(assets/img/bg/fondo-prueba.jpg)",
+        }}
+      >
         {" "}
-        {/* style="background-image: url('https://via.placeholder.com/1920x1080')" */}
         <div className="container">
           <div className="subheader-inner">
             <h1>{pagina}</h1>

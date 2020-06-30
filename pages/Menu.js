@@ -29,7 +29,6 @@ const Menu = () => {
       {
         breakpoint: 760,
         settings: {
-          arrows: true,
           infinite: true,
           slidesToShow: 4,
           slidesToScroll: 4,
@@ -39,7 +38,6 @@ const Menu = () => {
       {
         breakpoint: 540,
         settings: {
-          arrows: true,
           infinite: true,
           slidesToShow: 3,
           slidesToScroll: 3,
