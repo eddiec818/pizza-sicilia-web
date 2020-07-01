@@ -5,12 +5,14 @@ import {
   GET_CURRENT_USER,
   GET_USER_SUCCESS,
   GET_USER_ERROR,
+  SELECT_CATEGORY,
 } from "../actions/types";
 
 const initialState = {
   info: {},
   error: null,
   loading: false,
+  selectedCategory: "all",
 };
 
 export default (state = initialState, action) => {
@@ -41,6 +43,11 @@ export default (state = initialState, action) => {
         info: action.payload,
         error: null,
         loading: false,
+      };
+    case SELECT_CATEGORY:
+      return {
+        ...state,
+        selectedCategory: action.payload,
       };
     default:
       return state;

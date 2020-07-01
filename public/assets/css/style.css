@@ -1181,7 +1181,7 @@ table img {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 30px 20px;
+  padding: 20px 20px;
   color: #fff;
   font-weight: 600;
   -webkit-transition: 0.3s;
@@ -1285,7 +1285,7 @@ table img {
 }
 .header-controls-inner li.cart-dropdown-wrapper,
 .header-controls-inner li.search-dropdown-wrapper {
-  padding: 30px 15px;
+  padding: 20px 15px;
   position: relative;
   line-height: 0.9;
 }
@@ -1793,7 +1793,7 @@ table img {
 
 /* Header 2 */
 .main-header.header-2 {
-  background-color: #fff;
+  background-color: #000;
 }
 .main-header.header-2 .navbar {
   -webkit-box-align: inherit;
@@ -1812,13 +1812,14 @@ table img {
   margin-right: 20px;
 }
 .main-header.header-2 .navbar-brand img {
-  max-width: 120px;
+  max-width: 100px;
 }
 .main-header.header-2 .navbar-nav {
+  margin-left: auto;
   margin-right: auto;
 }
 .main-header.header-2 .header-controls {
-  background-color: #4e4e4e;
+  /* background-color: #4e4e4e; */
   padding: 0 30px 0 15px;
 }
 .main-header.header-2 .header-controls li {
@@ -2366,7 +2367,7 @@ table img {
   background-size: cover;
   background-position: center;
   min-height: 800px;
-  padding-top: 120px;
+  padding-top: 20px;
 }
 .can-sticky + .banner.banner-1 .banner-inner,
 .header-absolute + .banner.banner-1 .banner-inner {
@@ -2761,7 +2762,7 @@ table img {
 }
 .banner.banner-4 .banner-inner {
   text-align: center;
-  min-height: 520px;
+  min-height: 410px;
   display: block;
 }
 .banner.banner-4 .banner-inner h1,
@@ -4311,8 +4312,8 @@ td.quantity {
 
 /* 8.7. Menu Pages */
 .ct-menu-categories {
-  background-color: #ed4e53;
-  padding: 20px;
+  background-color: #000;
+  padding: 7px;
 }
 .ct-menu-category-item {
   display: inline-block;
@@ -4858,9 +4859,6 @@ td.quantity {
   .banner.banner-2 h4 {
     color: #fff;
   }
-  .main-header.header-2 .header-cta {
-    display: none;
-  }
   .auth-description {
     width: 450px;
   }
@@ -4925,6 +4923,9 @@ td.quantity {
   }
   .main-header .navbar {
     padding: 0;
+  }
+  .main-header.header-2 .header-cta {
+    display: none;
   }
   .top-header-nav li a {
     padding-left: 15px;
@@ -5238,6 +5239,7 @@ td.quantity {
   }
   .cart-sidebar-body {
     padding: 0 20px;
+    min-height: 70%;
   }
   .cart-sidebar-item {
     -ms-flex-wrap: wrap;
@@ -5259,9 +5261,8 @@ td.quantity {
   .banner-inner {
     max-width: 100%;
   }
-  .banner,
-  .banner.banner-1 .banner-inner {
-    padding: 80px 0;
+  .banner, .banner.banner-1 .banner-inner {
+    min-height: 410px;
   }
   .banner .title {
     font-size: 32px;

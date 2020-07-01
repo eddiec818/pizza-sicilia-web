@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Router from "next/router";
 import Layout from "../components/layout/Layout";
-
-import firebase from "../firebase";
+import { FirebaseContext } from "../firebase";
 
 // validaciones
 import useValidacion from "../hooks/useValidacion";
@@ -25,6 +24,8 @@ const errorStyle = {
 };
 
 const Login = () => {
+  const { usuario, firebase } = useContext(FirebaseContext);
+
   const [error, guardarError] = useState(false);
 
   const {
@@ -36,6 +37,12 @@ const Login = () => {
   } = useValidacion(STATE_INICIAL, validarIniciarSesion, iniciarSesion);
 
   const { email, password } = valores;
+
+  useEffect(() => {
+    if (usuario) {
+      Router.push("/");
+    }
+  }, [usuario]);
 
   async function iniciarSesion() {
     try {

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CartSidebarItem from "../ui/CartSidebarItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { clearCart } from "../../redux/actions/cartActions";
 
 const CartSideBar = () => {
+  const dispatch = useDispatch();
+
   const cartProducts = useSelector((state) => state.cart.products);
   const cartCost = useSelector((state) => state.cart.cartCost);
 
@@ -12,6 +16,14 @@ const CartSideBar = () => {
         <aside className="cart-sidebar">
           <div className="cart-sidebar-header">
             <h3>Your Cart</h3>
+            {cartProducts.length > 0 && (
+              <button
+                className="btn-custom"
+                onClick={() => dispatch(clearCart())}
+              >
+                Vaciar Carrito
+              </button>
+            )}
             <div className="close-btn cart-trigger close-dark">
               <span></span>
               <span></span>

@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Header from "./Header";
+import AltHeader from "./AltHeader";
 import Footer from "./Footer";
 import CartSideBar from "./CartSideBar";
 import Search from "../ui/Search";
 import Aside from "../ui/Aside";
 
 const Layout = (props) => {
+  // const [showAltHeader, setShowAltHeader] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("load", setLoaded(true));
-
-    return () => window.removeEventListener("load", setLoaded(false));
+    // window.addEventListener("load", setLoaded(true));
+    // return () => window.removeEventListener("load", setLoaded(false));
   }),
     [loaded];
+
+  // useEffect(() => {
+  //   const onScroll = (e) => {
+  //     const showHeader = window.scrollY > 500;
+  //     showAltHeader !== showHeader && setShowAltHeader(showHeader);
+  //   };
+
+  //   document.addEventListener("scroll", onScroll);
+  //   return () => window.removeEventListener("scroll", onScroll);
+  // });
 
   return (
     <>
@@ -63,8 +74,8 @@ const Layout = (props) => {
       <Search />
 
       <Aside />
-
-      <Header />
+      {/* <Header /> */}
+      <AltHeader />
 
       <main>{props.children}</main>
 
