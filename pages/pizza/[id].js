@@ -544,7 +544,7 @@ const Pizza = () => {
                       // href="/checkout"
                       name="button"
                       className="btn-custom secondary"
-                      onClick={(e) => addCartProduct(e, calzoneFinal)}
+                      onClick={(e) => addCartProduct(e, pizzaFinal)}
                     >
                       {" "}
                       Order <i className="fas fa-shopping-cart"></i>{" "}

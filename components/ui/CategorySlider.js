@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSelectedCategory } from "../../redux/actions/currentUserActions";
+import { cartOpen } from "../../redux/actions/cartActions";
 import Slider from "react-slick";
 
 const settings = {
@@ -44,7 +45,9 @@ const settings = {
   ],
 };
 
-const CategorySlider = () => {
+const CategorySlider = ({ showFixed, refMenuCategory }) => {
+  const cartNumber = useSelector((state) => state.cart.cartNumber);
+  const cartOpened = useSelector((state) => state.cart.cartOpen);
   const categorias = useSelector((state) => state.products);
   const selectedCategory = useSelector(
     (state) => state.currentUser.selectedCategory
@@ -52,19 +55,43 @@ const CategorySlider = () => {
 
   const dispatch = useDispatch();
 
+  const handleCategoryClick = (category) => {
+    refMenuCategory.current.scrollIntoView();
+    dispatch(getSelectedCategory(category));
+  };
+
   return (
     <>
+      <a
+        className="navbar-brand"
+        href="index.html"
+        style={showFixed ? { width: "100px" } : { width: "140px" }}
+      >
+        {" "}
+        <img src="assets/img/misc/1.png" alt="logo" />{" "}
+      </a>
       <Slider {...settings}>
         <div
           data-filter="*"
           className={`ct-menu-category-item ${
             selectedCategory == "all" && "active"
           }`}
-          onClick={() => dispatch(getSelectedCategory("all"))}
+          onClick={() => handleCategoryClick("all")}
         >
-          <div className="menu-category-thumb">
+          {/* <div className="menu-category-thumb">
             <img src="https://via.placeholder.com/400" alt="category" />
-          </div>
+          </div> */}
+
+          {!showFixed ? (
+            <div className="menu-category-thumb">
+              <img src="https://via.placeholder.com/400" alt="category" />
+            </div>
+          ) : (
+            <i
+              className="flaticon-shopping-bag"
+              style={{ color: "white", fontSize: "2rem" }}
+            ></i>
+          )}
           <div className="menu-category-desc">
             <h6>All</h6>
           </div>
@@ -76,17 +103,41 @@ const CategorySlider = () => {
             className={`ct-menu-category-item ${
               selectedCategory == categoria && "active"
             }`}
-            onClick={() => dispatch(getSelectedCategory(categoria))}
+            onClick={() => handleCategoryClick(categoria)}
           >
-            <div className="menu-category-thumb">
+            {/* <div className="menu-category-thumb">
               <img src="https://via.placeholder.com/400" alt="category" />
-            </div>
+            </div> */}
+            {!showFixed ? (
+              <div className="menu-category-thumb">
+                <img src="https://via.placeholder.com/400" alt="category" />
+              </div>
+            ) : (
+              <i
+                className="flaticon-shopping-bag"
+                style={{ color: "white", fontSize: "2rem" }}
+              ></i>
+            )}
             <div className="menu-category-desc">
               <h6>{categoria}</h6>
             </div>
           </div>
         ))}
       </Slider>
+      <div className="header-controls">
+        <ul className="header-controls-inner">
+          <li
+            className="cart-dropdown-wrapper cart-trigger "
+            onClick={() => dispatch(cartOpen(!cartOpened))}
+          >
+            <span className="cart-item-count">{cartNumber}</span>
+            <i
+              className="flaticon-shopping-bag"
+              style={{ color: "white", fontSize: "2.5rem" }}
+            ></i>
+          </li>
+        </ul>
+      </div>
     </>
   );
 };

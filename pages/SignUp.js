@@ -7,6 +7,7 @@ import firebase from "../firebase";
 // validaciones
 import useValidacion from "../hooks/useValidacion";
 import validarCrearCuenta from "../validacion/validarCrearCuenta";
+import Link from "next/link";
 
 const STATE_INICIAL = {
   username: "",
@@ -49,19 +50,30 @@ const SingUp = () => {
     }
   }
 
+  const socialLogin = async (red) => {
+    try {
+      const provider =
+        red === 1 ? firebase.googleProvider : firebase.facebookProvider;
+      await firebase.auth.signInWithPopup(provider);
+      Router.back();
+    } catch (error) {
+      guardarError(error.message);
+    }
+  };
+
   return (
     <>
       <Layout>
         {/* <!-- Register Form Start --> */}
-        <div className="section login-signup-section">
+        <div className="section">
           <div className="imgs-wrapper">
             <img
-              src="https://via.placeholder.com/638x800"
+              src="assets/img/bg/hoja-login.png"
               alt="veg"
               className="d-none d-lg-block"
             />
             <img
-              src="https://via.placeholder.com/600"
+              src="assets/img/bg/pizza-ezquina.png"
               alt="veg"
               className="d-none d-lg-block"
             />
@@ -69,9 +81,12 @@ const SingUp = () => {
 
           <div className="container">
             <div className="auth-wrapper">
-              <div className="auth-description bg-cover bg-center dark-overlay dark-overlay-2">
-                {" "}
-                {/* style="background-image: url('https://via.placeholder.com/1280x1560')" */}
+              <div
+                className="auth-description bg-cover bg-center dark-overlay dark-overlay-2"
+                style={{
+                  backgroundImage: "url(assets/img/bg/pizza-login.jpg)",
+                }}
+              >
                 <div className="auth-description-inner">
                   <i className="flaticon-chili"></i>
                   <h2>Hello World!</h2>
@@ -82,7 +97,7 @@ const SingUp = () => {
                 </div>
               </div>
               <div className="auth-form">
-                <h2>Sign Up</h2>
+                <h2>Registro</h2>
 
                 <form onSubmit={handleSubmit} noValidate>
                   <div className="form-group">
@@ -128,25 +143,36 @@ const SingUp = () => {
                   {error && <p style={errorStyle}>{error} </p>}
 
                   <button type="submit" className="btn-custom primary">
-                    Sign Up
+                    registrarme
                   </button>
 
                   <div className="auth-seperator">
-                    <span>OR</span>
+                    <span>O</span>
                   </div>
 
                   <div className="social-login">
-                    <button type="button" className="ct-social-login facebook">
-                      <i className="fab fa-facebook-f"></i> Continue with
-                      Facebook{" "}
+                    <button
+                      type="button"
+                      className="ct-social-login facebook"
+                      onClick={() => socialLogin(0)}
+                    >
+                      <i className="fab fa-facebook-f"></i> Conectate con
+                      Facebook
                     </button>
-                    <button type="button" className="ct-social-login google">
-                      <i className="fab fa-google"></i> Continue with Google
+                    <button
+                      type="button"
+                      className="ct-social-login google"
+                      onClick={() => socialLogin(1)}
+                    >
+                      <i className="fab fa-google"></i> Conectate con Google
                     </button>
                   </div>
 
                   <p>
-                    Ya tienes cuenta? <a href="/login">Inicia Sesión</a>{" "}
+                    Ya tienes cuenta?{" "}
+                    <Link href="/login">
+                      <a>Inicia Sesión</a>
+                    </Link>
                   </p>
                 </form>
               </div>

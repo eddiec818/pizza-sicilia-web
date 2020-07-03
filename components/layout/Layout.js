@@ -11,11 +11,11 @@ const Layout = (props) => {
   // const [showAltHeader, setShowAltHeader] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    // window.addEventListener("load", setLoaded(true));
-    // return () => window.removeEventListener("load", setLoaded(false));
-  }),
-    [loaded];
+  // useEffect(() => {
+  //   window.addEventListener("load", setLoaded(true));
+  //   return () => window.removeEventListener("load", setLoaded(false));
+  // }),
+  //   [loaded];
 
   // useEffect(() => {
   //   const onScroll = (e) => {

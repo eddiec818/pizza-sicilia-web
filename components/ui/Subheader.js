@@ -6,7 +6,8 @@ const Subheader = ({ pagina }) => {
       <div
         className="subheader dark-overlay dark-overlay-2"
         style={{
-          backgroundImage: "url(assets/img/bg/fondo-prueba.jpg)",
+          backgroundImage:
+            "url(http://localhost:3000/assets/img/bg/fondo-prueba.jpg)",
         }}
       >
         {" "}

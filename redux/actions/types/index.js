@@ -6,6 +6,7 @@ export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const CLEAR_PRODUCT = "CLEAR_PRODUCT";
 export const CLEAR_CART = "CLEAR_CART";
+export const CART_OPEN = "CART_OPEN";
 //Current User Info
 export const ADD_CURRENT_USER = "ADD_CURRENT_USER";
 export const ADD_USER_SUCCESS = "ADD_USER_SUCCESS";

@@ -5,6 +5,7 @@ import {
   DECREASE_QUANTITY,
   CLEAR_PRODUCT,
   CLEAR_CART,
+  CART_OPEN,
 } from "../actions/types";
 
 export const addCart = (product) => {
@@ -38,6 +39,15 @@ export const clearCart = () => {
   return (dispatch) => {
     dispatch({
       type: CLEAR_CART,
+    });
+  };
+};
+
+export const cartOpen = (opened) => {
+  return (dispatch) => {
+    dispatch({
+      type: CART_OPEN,
+      payload: opened,
     });
   };
 };

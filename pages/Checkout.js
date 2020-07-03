@@ -15,7 +15,10 @@ import { clearCart } from "../redux/actions/cartActions";
 import Router from "next/router";
 
 const Checkout = () => {
-  const [order, setOrder] = useState({ payMethod: "efectivo" });
+  const [order, setOrder] = useState({
+    payMethod: "efectivo",
+    user: { zone: { precio: 2 } },
+  });
   const [userEmail, setUserEmail] = useState("nada");
 
   const { usuario, firebase } = useContext(FirebaseContext);
@@ -36,7 +39,7 @@ const Checkout = () => {
       create_at: new Date(),
       status: "pending",
     });
-  }, [cart, currentUser]);
+  }, [cart]);
 
   useEffect(() => {
     if (usuario) {
@@ -92,6 +95,12 @@ const Checkout = () => {
     });
   };
 
+  const delivery = Number(currentUser.info.deliveryPrice);
+
+  const itbms = Number(cart.cartCost) * 0.07;
+
+  const total = Number(cart.cartCost) + itbms + delivery;
+
   return (
     <>
       <Layout>
@@ -132,11 +141,31 @@ const Checkout = () => {
                   </thead>
                   <tbody>
                     <TableBody />
-                    <tr>
-                      <th colSpan="2">Total a Pagar</th>
-                      <th>{cart.cartCost}$</th>
-                    </tr>
                   </tbody>
+                  <tfoot>
+                    <tr>
+                      <th colSpan="2">
+                        <span className="d-block">Subtotal</span>
+                        <span className="d-block">ITBMS 7%</span>
+                        <span className="d-block">Delivery</span>
+                        <span className="d-block">Total a Pagar</span>
+                      </th>
+                      <th>
+                        <span className="d-block text-right">
+                          {Number(cart.cartCost).toFixed(2)}$
+                        </span>
+                        <span className="d-block text-right">
+                          {itbms.toFixed(2)}$
+                        </span>
+                        <span className="d-block text-right">
+                          {delivery.toFixed(2)}$
+                        </span>
+                        <span className="d-block text-right">
+                          {total.toFixed(2)}$
+                        </span>
+                      </th>
+                    </tr>
+                  </tfoot>
                 </table>
                 <div className="form-group">
                   <label>

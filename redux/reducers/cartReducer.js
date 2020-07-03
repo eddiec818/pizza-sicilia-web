@@ -6,8 +6,10 @@ import {
   DECREASE_QUANTITY,
   CLEAR_PRODUCT,
   CLEAR_CART,
+  CART_OPEN,
 } from "../actions/types";
 const initialState = {
+  cartOpen: false,
   cartNumber: 0,
   cartCost: 0,
   products: [],
@@ -70,6 +72,11 @@ export default (state = initialState, action) => {
       };
     case CLEAR_CART:
       return initialState;
+    case CART_OPEN:
+      return {
+        ...state,
+        cartOpen: action.payload,
+      };
     default:
       return state;
   }

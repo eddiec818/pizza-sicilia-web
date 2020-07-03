@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import CartSidebarItem from "../ui/CartSidebarItem";
 import { useSelector, useDispatch } from "react-redux";
 
-import { clearCart } from "../../redux/actions/cartActions";
+import { clearCart, cartOpen } from "../../redux/actions/cartActions";
+import Link from "next/link";
 
 const CartSideBar = () => {
   const dispatch = useDispatch();
 
   const cartProducts = useSelector((state) => state.cart.products);
   const cartCost = useSelector((state) => state.cart.cartCost);
+  const cartOpened = useSelector((state) => state.cart.cartOpen);
 
   return (
     <>
-      <div className="cart-sidebar-wrapper">
+      <div className={`cart-sidebar-wrapper ${cartOpened ? "cart-open" : ""}`}>
         <aside className="cart-sidebar">
           <div className="cart-sidebar-header">
             <h3>Your Cart</h3>
@@ -24,7 +26,10 @@ const CartSideBar = () => {
                 Vaciar Carrito
               </button>
             )}
-            <div className="close-btn cart-trigger close-dark">
+            <div
+              className="close-btn cart-trigger close-dark"
+              onClick={() => dispatch(cartOpen(false))}
+            >
               <span></span>
               <span></span>
             </div>
@@ -45,9 +50,14 @@ const CartSideBar = () => {
             <h4>
               Total: <span>{Number(cartCost).toFixed(2)}$</span>{" "}
             </h4>
-            <a href="/checkout" className="btn-custom">
-              Checkout
-            </a>
+            <Link href="/checkout">
+              <a
+                className="btn-custom"
+                onClick={() => dispatch(cartOpen(false))}
+              >
+                Checkout
+              </a>
+            </Link>
           </div>
         </aside>
         <div className="cart-sidebar-overlay cart-trigger"></div>

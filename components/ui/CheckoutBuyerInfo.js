@@ -9,6 +9,8 @@ import {
 } from "../../redux/actions/currentUserActions";
 import useUserInfo from "../../hooks/useUserInfo";
 
+import { deliveryTo } from "../../public/statics/delivery";
+
 // const INITIAL_STATE = {
 //   name: '',
 //   dirType: 'casa',
@@ -26,6 +28,7 @@ const CheckoutBuyerInfo = ({ usuario, firebase }) => {
   // Estado local para manejar informacion del formulario de checkout
   const [currentUserInfo, setCurrentUserInfo] = useState({
     saveInfo: false,
+    deliveryPrice: 2,
   });
   const [disabled, setDisabled] = useState({
     dirType: false,
@@ -88,10 +91,8 @@ const CheckoutBuyerInfo = ({ usuario, firebase }) => {
     const optionPrice = e.target.options[e.target.selectedIndex].dataset.precio;
     setCurrentUserInfo({
       ...currentUserInfo,
-      [e.target.name]: {
-        name: e.target.value,
-        precio: optionPrice,
-      },
+      [e.target.name]: e.target.value,
+      deliveryPrice: optionPrice,
     });
   };
 
@@ -102,6 +103,7 @@ const CheckoutBuyerInfo = ({ usuario, firebase }) => {
     });
     if (!e.target.checked) {
       setCurrentUserInfo({
+        ...currentUserInfo,
         [e.target.id]: false,
       });
       setDisabled({
@@ -231,43 +233,24 @@ const CheckoutBuyerInfo = ({ usuario, firebase }) => {
             disabled={disabled.zone ? true : false}
           >
             {userInfo.zone && (
-              <option defaultValue={userInfo.zone.name} selected>
-                {capitalize(userInfo.zone.name)}
+              <option defaultValue={userInfo.zone} selected>
+                {deliveryTo[userInfo.zone].name}
               </option>
             )}
             <option value="" hidden>
               Seleccionar
             </option>
-            <option data-precio={3} value="alborada">
-              Alborada
-            </option>
-            <option data-precio={3} value="arcoiris">
-              Arcoiris
-            </option>
-            <option data-precio={3} value="cativa">
-              Cativa
-            </option>
-            <option data-precio={3} value="city">
-              Ciudad de Colon
-            </option>
-            <option data-precio={3} value="davis">
-              PanamaDavis
-            </option>
-            <option data-precio={3} value="espinar">
-              Espinar
-            </option>
-            <option data-precio={3} value="margarita">
-              Margarita
-            </option>
-            <option data-precio={3} value="puerto">
-              Puerto Escondido
-            </option>
-            <option data-precio={3} value="sanjudas">
-              San Judas
-            </option>
-            <option data-precio={3} value="sanmartin">
-              San Martin
-            </option>
+
+            {Object.keys(deliveryTo)
+              .sort()
+              .map((location, i) => {
+                const data = deliveryTo[location];
+                return (
+                  <option key={i} data-precio={data.precio} value={location}>
+                    {data.name}
+                  </option>
+                );
+              })}
           </select>
         </div>
         <div className="form-group col-xl-6">

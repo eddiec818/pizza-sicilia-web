@@ -1,4 +1,4 @@
-import app from "firebase/app";
+import * as app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
@@ -13,6 +13,8 @@ class Firebase {
     this.auth = app.auth();
     this.db = app.firestore();
     this.storage = app.storage();
+    this.googleProvider = new app.auth.GoogleAuthProvider();
+    this.facebookProvider = new app.auth.FacebookAuthProvider();
   }
 
   // Registra un usuario
@@ -35,7 +37,6 @@ class Firebase {
   // Cierra la sesión del usuario
   async cerrarSesion() {
     await this.auth.signOut();
-    
   }
 }
 

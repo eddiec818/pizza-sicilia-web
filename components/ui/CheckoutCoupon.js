@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 
 const CheckoutCoupon = () => {
+  const [ctOpen, setCtOpen] = useState(false);
+
   return (
     <>
       <div className="ct-notice">
         <p>
-          Tienes algun codigo de Cupón? <a href="#">Click para aplicarlo</a>{" "}
+          Tienes algun codigo de Cupón?{" "}
+          <a
+            className="btn-custom"
+            onClick={() => {
+              setCtOpen(!ctOpen);
+            }}
+          >
+            Click para aplicarlo
+          </a>{" "}
         </p>
       </div>
-      <div className="ct-notice-content">
+      <div
+        className="ct-notice-content"
+        style={ctOpen ? { display: "block" } : { display: "none" }}
+      >
         <div className="input-group">
           <input
             type="text"
@@ -17,7 +30,7 @@ const CheckoutCoupon = () => {
           />
           <div className="input-group-append">
             <button className="btn-custom shadow-none" type="button">
-            Aplicar Cupón
+              Aplicar Cupón
             </button>
           </div>
         </div>

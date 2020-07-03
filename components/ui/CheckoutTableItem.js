@@ -1,5 +1,8 @@
 import React from "react";
 
+import { clearProduct, productQuantity } from "../../redux/actions/cartActions";
+import { useDispatch } from "react-redux";
+
 const CheckoutTableItem = ({ cartProduct }) => {
   const {
     id,
@@ -13,14 +16,28 @@ const CheckoutTableItem = ({ cartProduct }) => {
 
   const precioTotal = precio * cantidad;
 
+  const dispatch = useDispatch();
+
+  const clearCartProduct = (producto) => {
+    cantidad > 1
+      ? dispatch(productQuantity("decrease", producto))
+      : dispatch(clearProduct(producto));
+  };
+
   return (
     <>
       <tr>
         <td data-title="Product">
           <div className="cart-product-wrapper">
             <div className="cart-product-body">
-              <h6>
-                {" "}
+              <h6 className="d-flex">
+                <div
+                  onClick={() => clearCartProduct(cartProduct)}
+                  className="close-btn close-dark"
+                >
+                  <span></span>
+                  <span></span>
+                </div>
                 <a href={`/${categoria}/${id}`}>{`${
                   categoria[0].toUpperCase() + categoria.slice(1)
                 } de ${nombre}`}</a>{" "}
