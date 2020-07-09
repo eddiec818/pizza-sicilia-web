@@ -9,9 +9,9 @@ const NotFound = () => {
           <div class="page-404-text">
             <h1>Page Not Found</h1>
             <p>Sorry, the page you're looking for does not exist</p>
-            <a href="index.html" class="btn-custom">
-              Go Back Home
-            </a>
+            <Link href="/">
+              <a class="btn-custom">Go Back Home</a>
+            </Link>
           </div>
 
           <div class="banner-bottom-img">

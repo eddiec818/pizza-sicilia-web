@@ -2359,9 +2359,9 @@ table img {
   padding: 0;
   min-height: auto;
 }
-.banner .slick-list,
-.banner .slick-slide {
+.slick-slider {
   margin: 0;
+  width: 60%;
 }
 .banner.banner-1 .container-fluid {
   width: 85%;
@@ -4977,6 +4977,9 @@ border-bottom: 3px solid red;
   .banner .subtitle {
     margin-bottom: 15px;
   }
+  .banner.banner-1{
+    padding-top: 85px;
+  }
   .banner,
   .banner.banner-1 .banner-inner {
     min-height: 550px;
@@ -5037,6 +5040,9 @@ border-bottom: 3px solid red;
 
   .main-header.header-fw {
     padding: 0;
+  }
+  .main-header.header-2 {
+    position: fixed;
   }
   .main-header.header-2 .navbar-brand {
     padding: 0 0 0 15px;
@@ -5142,6 +5148,16 @@ border-bottom: 3px solid red;
   }
   .ct-category.category-2 .ct-category-desc a {
     margin-top: 5px;
+  }
+  .ct-menu-categories{
+    padding: 0;
+  }
+  .menu-category-thumb{
+    display: none;
+  }
+  .slick-slider{
+    margin: auto;
+    width: 50%;
   }
 }
 
@@ -5308,9 +5324,11 @@ border-bottom: 3px solid red;
   }
   .footer-offer {
     padding: 0px;
+    justify-content: center;
 }
   .footer-widget {
     text-align: center;
+    margin-top: 20px;
   }
   .ct-footer .social-media {
     -webkit-box-pack: center;
@@ -5382,10 +5400,6 @@ border-bottom: 3px solid red;
 @media (max-width: 575px) {
   .modal-lg {
     max-width: 500px;
-  }
-  .section{
-    padding-top: 0;
-    padding-bottom: 40px;
   }
   .search-form-wrapper form {
     width: 100%;

@@ -6,6 +6,7 @@ import {
   GET_USER_SUCCESS,
   GET_USER_ERROR,
   SELECT_CATEGORY,
+  OPEN_MOBILE_ASIDE,
 } from "../actions/types";
 
 export const addCurrentUser = () => {
@@ -70,6 +71,15 @@ export const getSelectedCategory = (estado) => {
   return (dispatch) => {
     dispatch({
       type: SELECT_CATEGORY,
+      payload: estado,
+    });
+  };
+};
+
+export const openMobileAside = (estado) => {
+  return (dispatch) => {
+    dispatch({
+      type: OPEN_MOBILE_ASIDE,
       payload: estado,
     });
   };

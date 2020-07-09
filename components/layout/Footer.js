@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const Footer = () => {
   const [day, setDay] = useState(0);
+
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 991px)" });
 
   useEffect(() => {
     setDay(new Date().getDay());
@@ -75,10 +78,6 @@ const Footer = () => {
                 <ul>
                   <li>
                     {" "}
-                    <a href="#">Home</a>{" "}
-                  </li>
-                  <li>
-                    {" "}
                     <a href="#">Menu</a>{" "}
                   </li>
                   <li>
@@ -99,7 +98,7 @@ const Footer = () => {
                   </a>
                   <p> para recibir ofertas y cupones.</p>
                 </div>
-                <div className="d-flex mt-5">
+                <div className="d-flex mt-5 justify-content-center">
                   <h5 className="widget-title mr-3">Redes Sociales</h5>
                   <ul className="social-media">
                     <li>
@@ -139,24 +138,26 @@ const Footer = () => {
                 Copyright &copy; 2020 <a href="#">LeCreations</a> All Rights
                 Reserved.{" "}
               </p>
-              <ul>
-                <li>
-                  {" "}
-                  <a href="#">Privacy Policy</a>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <a href="#">Refund Policy</a>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <a href="#">Cookie Policy</a>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <a href="#">Terms & Conditions</a>{" "}
-                </li>
-              </ul>
+              {!isTabletOrMobile && (
+                <ul>
+                  <li>
+                    {" "}
+                    <a href="#">Privacy Policy</a>{" "}
+                  </li>
+                  <li>
+                    {" "}
+                    <a href="#">Refund Policy</a>{" "}
+                  </li>
+                  <li>
+                    {" "}
+                    <a href="#">Cookie Policy</a>{" "}
+                  </li>
+                  <li>
+                    {" "}
+                    <a href="#">Terms & Conditions</a>{" "}
+                  </li>
+                </ul>
+              )}
               <a href="#" className="back-to-top">
                 Back to top <i className="fas fa-chevron-up"></i>{" "}
               </a>

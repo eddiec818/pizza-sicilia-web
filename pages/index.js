@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useMediaQuery } from "react-responsive";
 import Layout from "../components/layout/Layout";
 import Subheader from "../components/ui/Subheader";
 import CategoryMenuItem from "../components/ui/CategoryMenuItem";
 
 import { useDispatch, useSelector } from "react-redux";
 import CategorySlider from "../components/ui/CategorySlider";
+import MobileCategorySlider from "../components/ui/MobileCategorySlider";
 
 const Menu = () => {
-  // const [selectedCategory, setSelectedCategory] = useState("all");
+  const [category, setCategory] = useState("all");
   const [showFixed, setShowFixed] = useState(false);
 
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 991px)" });
+  console.log(isTabletOrMobile);
+
   const refMenuCategory = useRef();
+  const refMenuSection = useRef();
 
   const categorias = useSelector((state) => state.products);
   const selectedCategory = useSelector(
@@ -19,13 +25,17 @@ const Menu = () => {
 
   useEffect(() => {
     const onScroll = (e) => {
-      const newShowFixed = window.scrollY > 500;
+      const newShowFixed = window.scrollY > 400;
       showFixed !== newShowFixed && setShowFixed(newShowFixed);
     };
 
     document.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   });
+
+  useEffect(() => {
+    setCategory(selectedCategory);
+  }, [selectedCategory]);
 
   const categoryMenuItem = (categoria) =>
     categorias[categoria].map(
@@ -70,21 +80,32 @@ const Menu = () => {
           className={`${
             showFixed ? "fixed-top" : ""
           } ct-menu-categories menu-filter`}
+          style={showFixed ? { zIndex: "996" } : {}}
           ref={refMenuCategory}
         >
-          <div
-            className="container"
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <CategorySlider
-              showFixed={showFixed}
-              refMenuCategory={refMenuCategory}
-            />
+          <div className="container">
+            {isTabletOrMobile ? (
+              <MobileCategorySlider
+                showFixed={showFixed}
+                refMenuCategory={refMenuCategory}
+                refMenuSection={refMenuSection}
+              />
+            ) : (
+              <CategorySlider
+                showFixed={showFixed}
+                refMenuCategory={refMenuCategory}
+                refMenuSection={refMenuSection}
+              />
+            )}
           </div>
         </div>
         {/* <!-- Menu Categories End --> */}
 
-        <div className="section section-padding">
+        <div
+          className="section section-padding"
+          style={showFixed ? { paddingTop: "140px" } : {}}
+          ref={refMenuSection}
+        >
           <div className="container">
             <div className="row">
               {
@@ -98,7 +119,7 @@ const Menu = () => {
                   lasagnas: categoryMenuItem("lasagnas"),
                   alitas: categoryMenuItem("alitas"),
                   bebidas: categoryMenuItem("bebidas"),
-                }[selectedCategory]
+                }[category]
               }
             </div>
           </div>

@@ -4,7 +4,6 @@ import Header from "./Header";
 import AltHeader from "./AltHeader";
 import Footer from "./Footer";
 import CartSideBar from "./CartSideBar";
-import Search from "../ui/Search";
 import Aside from "../ui/Aside";
 
 const Layout = (props) => {
@@ -70,8 +69,6 @@ const Layout = (props) => {
       )}
 
       <CartSideBar />
-
-      <Search />
 
       <Aside />
       {/* <Header /> */}

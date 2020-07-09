@@ -70,7 +70,7 @@ const Checkout = () => {
         await firebase.db.collection("usersInfo").add(currentUser.info);
       }
       dispatch(clearCart());
-      Router.reload();
+      Router.push("/");
     } catch (error) {
       console.log(error);
     }

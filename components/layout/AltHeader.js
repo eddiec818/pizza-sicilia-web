@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useMediaQuery } from "react-responsive";
 import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { cartOpen } from "../../redux/actions/cartActions";
+import { openMobileAside } from "../../redux/actions/currentUserActions";
 
 import { FirebaseContext } from "../../firebase";
 
 const AltHeader = () => {
-  const [currentPath, setCurrentPath] = useState("/menu");
-
   const { usuario, firebase } = useContext(FirebaseContext);
+
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 991px)" });
 
   const dispatch = useDispatch();
   const router = useRouter();
 
   const cartNumber = useSelector((state) => state.cart.cartNumber);
   const cartOpened = useSelector((state) => state.cart.cartOpen);
+  const openAside = useSelector((state) => state.currentUser.mobileAside);
 
   const Logger = () =>
     usuario ? (
@@ -55,13 +58,16 @@ const AltHeader = () => {
         <div className="container">
           <nav className="navbar">
             {/* <!-- Toggler --> */}
-            <div className="aside-toggler aside-trigger">
+            <div
+              className="aside-toggler aside-trigger"
+              onClick={() => dispatch(openMobileAside(!openAside))}
+            >
               <span></span>
               <span></span>
               <span></span>
             </div>
             {/* <!-- Logo --> */}
-            {router.pathname !== "/" ? (
+            {router.pathname !== "/" || isTabletOrMobile ? (
               <a
                 className="navbar-brand"
                 href="index.html"
@@ -87,31 +93,33 @@ const AltHeader = () => {
             )}
 
             {/* <!-- Menu --> */}
-            <ul className="navbar-nav">
-              {/* <li className="menu-item menu-item-has-children">
+            {!isTabletOrMobile && (
+              <ul className="navbar-nav">
+                {/* <li className="menu-item menu-item-has-children">
                     <a href="/">Home</a>
                      <Link href="/"><a>Home</a></Link> 
                   </li> */}
-              <li className="menu-item menu-item-has-children">
-                {/* <a href="/menu">Menu</a> */}
-                <Link href="/">
-                  <a>Menú</a>
-                </Link>
-              </li>
-              <li className="menu-item">
-                {/* <a href="/locations">Ubicaciones</a> */}
-                <Link href="/locations">
-                  <a>Ubicaciones</a>
-                </Link>
-              </li>
-              <li className="menu-item">
-                {/* <a href="/aboutus">Nosotros</a> */}
-                <Link href="/aboutus">
-                  <a>Nosotros</a>
-                </Link>
-              </li>
-            </ul>
-            {router.pathname !== "/" ? (
+                <li className="menu-item menu-item-has-children">
+                  {/* <a href="/menu">Menu</a> */}
+                  <Link href="/">
+                    <a>Menú</a>
+                  </Link>
+                </li>
+                <li className="menu-item">
+                  {/* <a href="/locations">Ubicaciones</a> */}
+                  <Link href="/locations">
+                    <a>Ubicaciones</a>
+                  </Link>
+                </li>
+                <li className="menu-item">
+                  {/* <a href="/aboutus">Nosotros</a> */}
+                  <Link href="/aboutus">
+                    <a>Nosotros</a>
+                  </Link>
+                </li>
+              </ul>
+            )}
+            {router.pathname !== "/" || isTabletOrMobile ? (
               <div className="header-controls">
                 <ul className="header-controls-inner">
                   <li
