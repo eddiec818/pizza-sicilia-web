@@ -72,7 +72,7 @@ const AltHeader = () => {
                 <a className="navbar-brand" style={{ width: "100px" }}>
                   {" "}
                   <img
-                    src={`${process.env.PUBLIC_URL}/assets/img/misc/1.png`}
+                    src={`${process.env.VERCEL_URL}/assets/img/misc/1.png`}
                     alt="logo"
                   />{" "}
                 </a>
