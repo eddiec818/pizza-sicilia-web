@@ -71,7 +71,7 @@ const AltHeader = () => {
               <Link href="/">
                 <a className="navbar-brand" style={{ width: "100px" }}>
                   {" "}
-                  <img src="assets/img/misc/1.png" alt="logo" />{" "}
+                  <img src="/assets/img/misc/1.png" alt="logo" />{" "}
                 </a>
               </Link>
             ) : (
