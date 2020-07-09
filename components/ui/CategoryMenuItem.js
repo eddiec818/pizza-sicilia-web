@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Actions de redux
 import { addCart, productQuantity } from "../../redux/actions/cartActions";
+import Link from "next/link";
 
 const CategoryMenuItem = ({ producto }) => {
   const { id, nombre, precio, categoria } = producto;
@@ -49,12 +50,11 @@ const CategoryMenuItem = ({ producto }) => {
                 Agregar <i className="fas fa-shopping-cart"></i>
               </a>
               {(categoria == "pizza" || categoria == "calzone") && (
-                <a
-                  href={`/${categoria}/${id}`}
-                  className="col-lg-5 btn-custom secondary btn-sm shadow-none"
-                >
-                  Armar <i className="fas fa-plus"></i>
-                </a>
+                <Link href={`/${categoria}/${id}`}>
+                  <a className="col-lg-5 btn-custom secondary btn-sm shadow-none">
+                    Armar <i className="fas fa-plus"></i>
+                  </a>
+                </Link>
               )}
             </div>
           </div>
