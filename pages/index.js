@@ -13,7 +13,7 @@ const Menu = () => {
   const [showFixed, setShowFixed] = useState(false);
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 991px)" });
-  console.log(isTabletOrMobile);
+  console.log(process.env.PUBLIC_URL);
 
   const refMenuCategory = useRef();
   const refMenuSection = useRef();

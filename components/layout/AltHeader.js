@@ -68,17 +68,15 @@ const AltHeader = () => {
             </div>
             {/* <!-- Logo --> */}
             {router.pathname !== "/" || isTabletOrMobile ? (
-              <a
-                className="navbar-brand"
-                href="index.html"
-                style={{ width: "100px" }}
-              >
-                {" "}
-                <img
-                  src="http://localhost:3000/assets/img/misc/1.png"
-                  alt="logo"
-                />{" "}
-              </a>
+              <Link href="/">
+                <a className="navbar-brand" style={{ width: "100px" }}>
+                  {" "}
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/img/misc/1.png`}
+                    alt="logo"
+                  />{" "}
+                </a>
+              </Link>
             ) : (
               <ul className="top-header-nav header-wa">
                 <li>

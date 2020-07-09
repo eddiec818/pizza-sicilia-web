@@ -14,7 +14,7 @@ const settings = {
   initialSlide: 0,
   responsive: [
     {
-      breakpoint: 1024,
+      breakpoint: 1200,
       settings: {
         arrows: true,
         infinite: true,

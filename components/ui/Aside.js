@@ -27,13 +27,11 @@ const Aside = () => {
   return (
     <>
       <aside className={`main-aside ${openAside ? "open" : ""}`}>
-        <a
-          className="navbar-brand"
-          href="index.html"
-          style={{ backgroundColor: "black" }}
-        >
-          <img src="http://localhost:3000/assets/img/misc/1.png" alt="logo" />
-        </a>
+        <Link href="/">
+          <a className="navbar-brand" style={{ backgroundColor: "black" }}>
+            <img src="assets/img/misc/1.png" alt="logo" />
+          </a>
+        </Link>
 
         {usuario ? (
           <>
