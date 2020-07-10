@@ -7,24 +7,7 @@ import CartSideBar from "./CartSideBar";
 import Aside from "../ui/Aside";
 
 const Layout = (props) => {
-  // const [showAltHeader, setShowAltHeader] = useState(false);
   const [loaded, setLoaded] = useState(false);
-
-  // useEffect(() => {
-  //   window.addEventListener("load", setLoaded(true));
-  //   return () => window.removeEventListener("load", setLoaded(false));
-  // }),
-  //   [loaded];
-
-  // useEffect(() => {
-  //   const onScroll = (e) => {
-  //     const showHeader = window.scrollY > 500;
-  //     showAltHeader !== showHeader && setShowAltHeader(showHeader);
-  //   };
-
-  //   document.addEventListener("scroll", onScroll);
-  //   return () => window.removeEventListener("scroll", onScroll);
-  // });
 
   return (
     <>
@@ -71,7 +54,7 @@ const Layout = (props) => {
       <CartSideBar />
 
       <Aside />
-      {/* <Header /> */}
+
       <AltHeader />
 
       <main>{props.children}</main>
