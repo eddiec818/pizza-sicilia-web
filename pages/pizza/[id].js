@@ -33,7 +33,7 @@ const Pizza = () => {
       setPizzaFinal(pizza);
       setPrice(pizza.precio);
       setTamaño(pizza.tamaño);
-      SetCantidad(pizza.cantidad + 1);
+      SetCantidad(pizza.cantidad);
       pizza.ingredientes.others.forEach((ingrediente) => {
         setIngredients((state) => [...state, ingrediente]);
         setChecked((state) => ({ ...state, [ingrediente]: true }));
