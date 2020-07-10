@@ -531,7 +531,11 @@ const Pizza = () => {
                         >
                           <i className="fas fa-minus"></i>
                         </span>
-                        <input type="text" name="qty" defaultValue={cantidad} />
+                        <input
+                          type="text"
+                          name="qty"
+                          defaultValue={cantidad + 1}
+                        />
                         <span
                           className="qty-add"
                           onClick={() => SetCantidad(cantidad + 1)}
